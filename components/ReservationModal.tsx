@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Calendar, Clock, Users, CheckCircle2, Sparkles, MapPin, Wine, Utensils } from "lucide-react";
+import { X, Calendar, Clock, Users, CheckCircle2, Sparkles, Utensils, Wine } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { TIME_SLOTS, RESTAURANT_INFO } from "@/data/restaurantData";
 
 interface ReservationModalProps {
@@ -60,8 +61,6 @@ export default function ReservationModal({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   const handleProceedToContact = () => {
     setStep(2);
   };
@@ -79,37 +78,62 @@ export default function ReservationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div
-        className="relative w-full max-w-xl bg-[#141210] border border-white/15 rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header Bar */}
-        <div className="p-6 border-b border-white/10 flex items-center justify-between bg-[#191715]">
-          <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#E8CA72]">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="font-editorial text-xl text-white">Table Reservation</h3>
-              <p className="text-[11px] text-stone-400 font-light">Rose’s Luxury • Capitol Hill</p>
-            </div>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
-            aria-label="Close modal"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.94, y: 16 }}
+            transition={{ type: "spring", duration: 0.45, bounce: 0.15 }}
+            className="relative w-full max-w-xl bg-[#141210] border border-white/15 rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
           >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
+            {/* Header Bar */}
+            <div className="p-6 border-b border-white/10 flex items-center justify-between bg-[#191715]">
+              <div className="flex items-center space-x-2.5">
+                <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 flex items-center justify-center text-[#E8CA72]">
+                  <Sparkles className="w-4 h-4 animate-pulse-subtle" />
+                </div>
+                <div>
+                  <h3 className="font-editorial text-xl text-white">Table Reservation</h3>
+                  <p className="text-[11px] text-stone-400 font-light">Rose’s Luxury • Capitol Hill</p>
+                </div>
+              </div>
+
+              <motion.button
+                onClick={onClose}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                aria-label="Close modal"
+              >
+                <X className="w-4 h-4" />
+              </motion.button>
+            </div>
+
 
         {/* Modal Body */}
         <div className="p-6 overflow-y-auto flex-1 space-y-6">
-          {/* STEP 1: Select Seating, Party, Date & Time */}
-          {step === 1 && (
-            <div className="space-y-6">
+          <AnimatePresence mode="wait">
+            {/* STEP 1: Select Seating, Party, Date & Time */}
+            {step === 1 && (
+              <motion.div
+                key="step1"
+                initial={{ opacity: 0, x: 14 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -14 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+
               {/* Seating Area Selection */}
               <div>
                 <label className="block text-xs uppercase tracking-wider text-stone-400 font-medium mb-2.5">
@@ -233,12 +257,19 @@ export default function ReservationModal({
               >
                 Continue to Guest Details
               </button>
-            </div>
+            </motion.div>
           )}
 
           {/* STEP 2: Guest Details & Confirmation Form */}
           {step === 2 && (
-            <form onSubmit={handleConfirmReservation} className="space-y-4">
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 14 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -14 }}
+              transition={{ duration: 0.25 }}
+            >
+              <form onSubmit={handleConfirmReservation} className="space-y-4">
               <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-stone-300 flex items-center justify-between">
                 <div>
                   <span className="text-[#E8CA72] font-medium uppercase tracking-wider block text-[10px]">
@@ -331,59 +362,69 @@ export default function ReservationModal({
                 </button>
               </div>
             </form>
-          )}
+          </motion.div>
+        )}
 
-          {/* STEP 3: Confirmed Success State */}
-          {step === 3 && (
-            <div className="py-6 text-center space-y-6">
-              <div className="w-16 h-16 rounded-full bg-[#1C2E20] border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-
-              <div>
-                <span className="px-3 py-1 rounded-full bg-[#D4AF37]/20 text-[#E8CA72] text-[10px] uppercase tracking-widest font-semibold border border-[#D4AF37]/30">
-                  Reservation Confirmed
-                </span>
-                <h3 className="font-editorial text-3xl text-white mt-3">
-                  We Can’t Wait to Welcome You, {name}!
-                </h3>
-                <p className="text-stone-300 text-sm font-light mt-1">
-                  Confirmation Code: <strong className="text-[#E8CA72] font-mono">{confirmationCode}</strong>
-                </p>
-              </div>
-
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-left space-y-2 text-xs text-stone-300">
-                <div className="flex justify-between pb-2 border-b border-white/5">
-                  <span className="text-stone-400">Date & Time:</span>
-                  <span className="font-medium text-white">{date} at {time}</span>
-                </div>
-                <div className="flex justify-between pb-2 border-b border-white/5">
-                  <span className="text-stone-400">Guests & Room:</span>
-                  <span className="font-medium text-white">
-                    {guests} {guests === 1 ? "Guest" : "Guests"} ({seatingArea === "parlor" ? "Townhouse Parlor" : "The Roof Garden"})
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-stone-400">Location:</span>
-                  <span className="font-medium text-white">{RESTAURANT_INFO.address}</span>
-                </div>
-              </div>
-
-              <div className="text-[11px] text-stone-400 leading-relaxed">
-                A confirmation has been sent to <strong className="text-stone-200">{email}</strong>.
-                If your plans change, please give us 24 hours notice so another party may celebrate.
-              </div>
-
-              <button
-                onClick={handleResetAndClose}
-                className="w-full py-3.5 rounded-full bg-[#C0635A] hover:bg-[#D87C73] text-white text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer"
-              >
-                Close & Return to Menu
-              </button>
+        {/* STEP 3: Confirmed Success State */}
+        {step === 3 && (
+          <motion.div
+            key="step3"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.35 }}
+            className="py-6 text-center space-y-6"
+          >
+            <div className="w-16 h-16 rounded-full bg-[#1C2E20] border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl">
+              <CheckCircle2 className="w-8 h-8" />
             </div>
-          )}
-        </div>
-      </div>
+
+            <div>
+              <span className="px-3 py-1 rounded-full bg-[#D4AF37]/20 text-[#E8CA72] text-[10px] uppercase tracking-widest font-semibold border border-[#D4AF37]/30">
+                Reservation Confirmed
+              </span>
+              <h3 className="font-editorial text-3xl text-white mt-3">
+                We Can’t Wait to Welcome You, {name}!
+              </h3>
+              <p className="text-stone-300 text-sm font-light mt-1">
+                Confirmation Code: <strong className="text-[#E8CA72] font-mono">{confirmationCode}</strong>
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-left space-y-2 text-xs text-stone-300">
+              <div className="flex justify-between pb-2 border-b border-white/5">
+                <span className="text-stone-400">Date & Time:</span>
+                <span className="font-medium text-white">{date} at {time}</span>
+              </div>
+              <div className="flex justify-between pb-2 border-b border-white/5">
+                <span className="text-stone-400">Guests & Room:</span>
+                <span className="font-medium text-white">
+                  {guests} {guests === 1 ? "Guest" : "Guests"} ({seatingArea === "parlor" ? "Townhouse Parlor" : "The Roof Garden"})
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-stone-400">Location:</span>
+                <span className="font-medium text-white">{RESTAURANT_INFO.address}</span>
+              </div>
+            </div>
+
+            <div className="text-[11px] text-stone-400 leading-relaxed">
+              A confirmation has been sent to <strong className="text-stone-200">{email}</strong>.
+              If your plans change, please give us 24 hours notice so another party may celebrate.
+            </div>
+
+            <button
+              onClick={handleResetAndClose}
+              className="w-full py-3.5 rounded-full bg-[#C0635A] hover:bg-[#D87C73] text-white text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer"
+            >
+              Close & Return to Menu
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-  );
+  </motion.div>
+</motion.div>
+)}
+</AnimatePresence>
+);
 }

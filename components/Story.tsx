@@ -1,6 +1,7 @@
 "use client";
 
 import { Sparkles, Heart, Utensils, Award, Users } from "lucide-react";
+import { motion } from "framer-motion";
 import { ACCOLADES, GOODWILL_DATA } from "@/data/restaurantData";
 
 export default function Story() {
@@ -39,17 +40,29 @@ export default function Story() {
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         {/* Section Header Tag */}
-        <div className="flex items-center space-x-3 mb-4">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center space-x-3 mb-4"
+        >
           <div className="w-8 h-px bg-[#C0635A]" />
           <span className="text-xs uppercase tracking-[0.25em] text-[#C0635A] font-medium">
             Our Philosophy & Story
           </span>
-        </div>
+        </motion.div>
 
         {/* Two-Column Editorial Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-24">
           {/* Left Column: Narrative */}
-          <div className="lg:col-span-7 space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-7 space-y-6"
+          >
             <h2 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#FBF9F5] font-normal leading-[1.12]">
               Unpretentious Elegance. <br />
               <span className="italic text-[#E8CA72]">Culinary Joy Without Pretension.</span>
@@ -76,8 +89,12 @@ export default function Story() {
             </div>
 
             {/* Chef Quote Card */}
-            <div className="p-6 rounded-2xl bg-[#141210] border border-white/10 relative mt-8">
-              <span className="absolute -top-3 left-6 px-3 py-0.5 bg-[#C0635A] text-white text-[10px] uppercase tracking-widest font-semibold rounded-full">
+            <motion.div
+              whileHover={{ scale: 1.01, borderColor: "rgba(212, 175, 55, 0.3)" }}
+              transition={{ duration: 0.2 }}
+              className="p-6 rounded-2xl bg-[#141210] border border-white/10 relative mt-8 shadow-xl"
+            >
+              <span className="absolute -top-3 left-6 px-3 py-0.5 bg-[#C0635A] text-white text-[10px] uppercase tracking-widest font-semibold rounded-full shadow">
                 Chef Aaron Silverman
               </span>
               <p className="font-editorial italic text-lg md:text-xl text-[#FBF9F5] leading-snug mb-3">
@@ -88,11 +105,17 @@ export default function Story() {
               <div className="text-xs text-stone-400">
                 Founding Chef & Owner, Rose’s Luxury / Pineapple and Pearls
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Column: Editorial Visual Grid */}
-          <div className="lg:col-span-5 relative">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-5 relative"
+          >
             <div className="relative mx-auto max-w-md lg:max-w-none">
               {/* Primary Image: Cozy Townhouse Interior */}
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
@@ -112,8 +135,12 @@ export default function Story() {
                 </div>
               </div>
 
-              {/* Floating Inset Card: Signature Dish */}
-              <div className="absolute -bottom-8 -left-6 sm:-left-10 bg-[#161413]/95 backdrop-blur-md border border-white/15 p-4 rounded-xl shadow-2xl max-w-xs hidden sm:flex items-center space-x-3.5">
+              {/* Floating Inset Card: Signature Dish with Gentle Float */}
+              <motion.div
+                animate={{ y: [0, -8, 0] }}
+                transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -bottom-8 -left-6 sm:-left-10 bg-[#161413]/95 backdrop-blur-md border border-white/15 p-4 rounded-xl shadow-2xl max-w-xs hidden sm:flex items-center space-x-3.5 hover:border-[#D4AF37]/40 transition-colors"
+              >
                 <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-[#D4AF37]/30">
                   <img
                     src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80"
@@ -132,9 +159,9 @@ export default function Story() {
                     On the menu since opening night in 2013.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Key Stats Counter Grid */}
@@ -142,9 +169,14 @@ export default function Story() {
           {stats.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="p-6 rounded-2xl bg-[#141210]/60 border border-white/[0.07] hover:border-[#D4AF37]/40 transition-all duration-300 group hover:-translate-y-1"
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.12 }}
+                whileHover={{ y: -6, borderColor: "rgba(212, 175, 55, 0.4)" }}
+                className="p-6 rounded-2xl bg-[#141210]/60 border border-white/[0.07] transition-all duration-300 group shadow-lg"
               >
                 <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-[#E8CA72] mb-4 group-hover:bg-[#D4AF37]/15 group-hover:text-[#D4AF37] transition-colors">
                   <Icon className="w-5 h-5" />
@@ -160,7 +192,7 @@ export default function Story() {
                 <p className="text-xs text-stone-400 leading-relaxed font-light">
                   {item.label}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -168,9 +200,14 @@ export default function Story() {
         {/* Accolade Quote Ticker */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {ACCOLADES.map((accolade, i) => (
-            <div
+            <motion.div
               key={i}
-              className="p-6 rounded-2xl bg-black/40 border border-white/5 flex flex-col justify-between"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              whileHover={{ y: -4, borderColor: "rgba(255, 255, 255, 0.15)" }}
+              className="p-6 rounded-2xl bg-black/40 border border-white/5 flex flex-col justify-between transition-all"
             >
               <p className="font-editorial italic text-stone-300 text-sm md:text-base leading-relaxed mb-4">
                 “{accolade.quote}”
@@ -179,10 +216,11 @@ export default function Story() {
                 <p className="text-xs font-medium text-[#E8CA72]">{accolade.award}</p>
                 <p className="text-[11px] text-stone-500">{accolade.source}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
+
