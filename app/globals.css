@@ -1,26 +1,90 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  
+  --color-warm-black: #0b0a09;
+  --color-charcoal-950: #0f0e0d;
+  --color-charcoal-900: #161413;
+  --color-charcoal-800: #1f1c1a;
+  --color-charcoal-700: #2d2925;
+  --color-charcoal-600: #423d38;
+  --color-terracotta: #c0635a;
+  --color-terracotta-light: #d87c73;
+  --color-gold: #d4af37;
+  --color-gold-light: #e8ca72;
+  --color-linen: #fbf9f5;
+  --color-linen-muted: #dcd6cb;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-main: #0b0a09;
+  --fg-main: #fbf9f5;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: #0b0a09;
+  color: #fbf9f5;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0b0a09;
+  color: #fbf9f5;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  selection-background-color: #c0635a;
+  selection-color: #ffffff;
+}
+
+::selection {
+  background-color: #c0635a;
+  color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f0e0d;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d2925;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c0635a;
+}
+
+/* Serif font utility */
+.font-editorial {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Atmospheric Glows & Gradients */
+.glow-gold {
+  box-shadow: 0 0 35px -5px rgba(212, 175, 55, 0.25);
+}
+
+.glow-rose {
+  box-shadow: 0 0 35px -5px rgba(192, 99, 90, 0.25);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f5e4b2 0%, #d4af37 50%, #aa8017 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-rose-gradient {
+  background: linear-gradient(135deg, #f7cdc7 0%, #d87c73 50%, #c0635a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-subtle {
+  border-color: rgba(255, 255, 255, 0.08);
 }
