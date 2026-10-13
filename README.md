@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AAA Food Safety Certification
+
+A premium, fully responsive multi-page website concept for **AAA Food Safety Certification** ([aaasafefoods.com](https://aaasafefoods.com/)), an ANSI-accredited ServSafe food safety training provider with over 40 years of industry experience based in Los Angeles, California.
+
+## Features
+
+- **Full Multi-Page Experience**: Home, Courses & Pricing, On-Site Group Training, About Us, FAQ, and Contact.
+- **Bilingual Support (EN / ES)**: Interactive language switcher translating navigation, course content, FAQ, and forms between English and Spanish.
+- **Official & Verified Course Offerings**:
+  - ServSafe Food Protection Manager — $150 (Class & Exam included)
+  - Group Manager Training — $125 per manager for 5+ participants (Free on-site travel for 2+ managers)
+  - Food Handler Training — $49 (5-person minimum)
+- **Live Class Inquiry & Group Rate Estimator**: Interactive calculator with real-time discounts, participant adjustments, and validation.
+- **Direct Hotlines**:
+  - English: Richard at `(818) 339-3477`
+  - Spanish: Susana at `(818) 422-8854` (alternate `(818) 422-8834` preserved for client verification)
+- **Accreditation & Standards**:
+  - ANSI National Accreditation Board accredited
+  - Meets & exceeds California Health and Safety Code 113947.3
+  - Listed with the L.A. County Health Department as a Preferred Provider of Food Safety
+  - Same-day immediate exam grading
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) (or the assigned port) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: Next.js 16 (Turbopack) & React 19
+- **Styling**: Tailwind CSS v4
+- **Icons**: Lucide React
+- **Animations**: Framer Motion

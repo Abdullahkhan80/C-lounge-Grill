@@ -1,42 +1,38 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const cormorant = Cormorant_Garamond({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
+import { LanguageProvider } from "@/components/LanguageContext";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Rose’s Luxury | Michelin-Starred Dining on Capitol Hill, Washington D.C.",
+  title: "AAA Food Safety Certification | ServSafe Training Los Angeles, Orange & Ventura",
   description:
-    "Awarded One Michelin Star and Bon Appétit's Best New Restaurant in America. Located at 717 8th St SE on Capitol Hill. Making people happy since 2013.",
+    "Official ServSafe Food Protection Manager and Food Handler in-person training across Southern California. 40+ years experience, ANSI accredited, immediate same-day exam results. We come to your location for 2+ managers.",
   keywords: [
-    "Rose's Luxury",
-    "Michelin Star Washington DC",
-    "Capitol Hill Restaurant",
-    "Aaron Silverman",
-    "Roof Garden Dining DC",
-    "Fine Dining DC",
-    "Barracks Row Restaurants",
-    "Best Restaurant DC"
+    "ServSafe Certification Los Angeles",
+    "Food Safety Manager Class",
+    "California Food Handler Card",
+    "AAA Safe Foods",
+    "ANSI Food Protection Manager",
+    "On-site ServSafe Training",
+    "Orange County Food Safety",
+    "Ventura County ServSafe",
+    "Clases ServSafe Español Los Angeles",
+    "Richard AAA Food Safety",
+    "Susana Food Safety Spanish",
   ],
   openGraph: {
-    title: "Rose’s Luxury | Michelin-Starred Dining on Capitol Hill",
+    title: "AAA Food Safety Certification | ServSafe Manager & Handler Classes",
     description:
-      "A dinner party every night. Savor inventive culinary artistry, warm hospitality, and the historic Roof Garden on Capitol Hill.",
-    url: "https://rosesluxury.com",
-    siteName: "Rose's Luxury",
+      "Get Food Safety Certified with Confidence. In-person ServSafe instruction 7 days a week with immediate exam results in English & Spanish.",
+    url: "https://aaasafefoods.com",
+    siteName: "AAA Food Safety Certification",
     type: "website",
     locale: "en_US",
   },
@@ -48,12 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${cormorant.variable} ${jakarta.variable} scroll-smooth`}
-    >
-      <body className="min-h-screen bg-[#0B0A09] text-[#FBF9F5] antialiased selection:bg-[#C0635A] selection:text-white">
-        {children}
+    <html lang="en" className={`${jakarta.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-[#f8fafc] text-[#0f172a] antialiased selection:bg-[#0d9488] selection:text-white">
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
