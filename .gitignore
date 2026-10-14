@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# scraper & data extraction scratch files
+*.html
+*.txt
+analyze_stclair.js
+download_stclair_assets.js
+extract_stclair_details.js
+stclair_analysis.json
+stclair_images.json
+

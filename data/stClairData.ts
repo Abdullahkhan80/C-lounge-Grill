@@ -1,0 +1,550 @@
+export interface MenuItem {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  category: string;
+  tag?: string;
+  image?: string;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+}
+
+export interface GalleryPhoto {
+  id: string;
+  src: string;
+  title: string;
+  category: "food" | "cocktails" | "atmosphere";
+}
+
+export const ST_CLAIR_DATA = {
+  name: "The St. Clair Restaurant & Tavern",
+  shortName: "The St. Clair",
+  tagline: "Casual Dining. Exceptional Food.",
+  storyLead: "Where casual dining meets upscale food and welcoming Southern hospitality in Pell City, Alabama.",
+  description:
+    "Located at 2413 Dr John Haynes in Pell City, The St. Clair and Tavern at The St. Clair offer two distinct dining experiences under one roof: the vibrant, welcoming Tavern and the intimate, elegant St. Clair dining room.",
+  history:
+    "Named in honor of Major General Arthur St. Clair, our restaurant celebrates timeless Southern culinary craft, Certified Angus Beef steaks, fresh coastal seafood, seasonal chef specials, and an extensive collection of 30 wines by the glass and over 50 cellar bottles.",
+  address: {
+    street: "2413 Dr John Haynes Drive",
+    city: "Pell City",
+    state: "AL",
+    zip: "35125",
+    full: "2413 Dr John Haynes, Pell City, AL 35125",
+  },
+  phone: "(659) 658-4271",
+  phoneRaw: "16596584271",
+  resyUrl: "https://resy.com/cities/pll/the-st-clair",
+  facebookUrl: "https://www.facebook.com/thestclairpellcity/",
+  hours: [
+    { days: "Monday – Wednesday", time: "11:00 AM – 8:00 PM", notes: "Lunch, Happy Hour & Dinner" },
+    { days: "Thursday – Friday", time: "11:00 AM – 9:00 PM", notes: "Lunch, Happy Hour & Dinner" },
+    { days: "Saturday", time: "11:00 AM – 9:00 PM", notes: "Dinner Menu Only All Day" },
+    { days: "Sunday Brunch", time: "11:00 AM – 3:00 PM", notes: "Open Seating, No Reservations Required" },
+    { days: "Sunday Dinner", time: "3:00 PM – 8:00 PM", notes: "Full Dinner Menu" },
+  ],
+  happyHour: {
+    time: "3:00 PM – 6:00 PM Monday – Friday",
+    specials: [
+      "Domestic Bottles – $1 off",
+      "Well Drinks – $1 off",
+      "1/2 Order Smoked Wings (Asian Glazed, BBQ, or Mild Buffalo) – $6",
+      "Fried Green Tomato & Shrimp Duo – $11",
+      "Pew Pew Shrimp (Bang Bang style) – $7",
+      "Happy Hour Tavern Burger (1/4 lb smashed burger) – $12",
+    ],
+  },
+  experiences: {
+    tavern: {
+      name: "The Tavern",
+      badge: "Casual & Lively",
+      lead: "Welcoming, laid-back bar & dining room open 7 days a week.",
+      description:
+        "The Tavern offers a relaxed, energetic gathering place for lunch, happy hour, dinner, and Sunday brunch. Enjoy craft beers on tap, craft burgers like our signature Exit 158 Smashburger, smoked jumbo wings, and handcrafted cocktails with friends and family. Seating is first-come, first-served.",
+      features: [
+        "Open 7 days a week for lunch, dinner & Sunday brunch",
+        "Full-service bar featuring local Alabama & craft brews",
+        "Happy Hour Monday through Friday from 3:00 PM to 6:00 PM",
+        "First-come, first-served seating (no reservations required)",
+      ],
+      image: "/images/stclair/burger.jpg",
+    },
+    diningRoom: {
+      name: "The St. Clair Dining Room",
+      badge: "Intimate & Elevated",
+      lead: "Quieter, more refined dinner setting Wednesday through Saturday.",
+      description:
+        "The St. Clair dining room provides an intimate, elevated atmosphere tailored for romantic evenings, celebrations, and business dinners. Featuring prime Certified Angus Beef steaks, fresh Gulf seafood, pan-seared sea scallops, and fine wines curated by our sommelier. Reservations are recommended via Resy.",
+      features: [
+        "Open Wednesday through Saturday for evening dinner service",
+        "Certified Angus Beef hand-cut steaks & fresh Gulf seafood",
+        "Curated list of 30 wines by the glass & 50+ cellar bottles",
+        "Reservations recommended via Resy (walk-ins also welcome)",
+      ],
+      image: "/images/stclair/steak-baked-potato.jpg",
+    },
+  },
+  team: [
+    {
+      name: "Jennifer Andrews",
+      role: "Front of House Manager",
+      image: "/images/stclair/jennifer-headshot.jpg",
+      bio: "Leading our hospitality team with warm Southern charm, Jennifer ensures that every guest—whether pulling up a stool at The Tavern or dining in The St. Clair—receives attentive, personalized service.",
+    },
+    {
+      name: "Sean Fincher",
+      role: "Chef de Cuisine",
+      image: "/images/stclair/sean-headshot.jpg",
+      bio: "Chef Sean directs our culinary vision, blending classic Southern regional ingredients with refined culinary technique. From our Certified Angus Beef steaks to seasonal Chef's specials, his kitchen prioritizes scratch cooking and deep flavor.",
+    },
+    {
+      name: "Daly Milligan",
+      role: "Sous Chef",
+      image: "/images/stclair/Daly-udpated-square.jpg",
+      bio: "Bringing sharp kitchen execution and passion for fresh seafood and Southern sauces, Daly oversees line operations, ensuring consistent plate presentation across lunch and dinner services.",
+    },
+    {
+      name: "Jeremy Minton",
+      role: "Sous Chef",
+      image: "/images/stclair/Jeremy-Minton-square.jpg",
+      bio: "Specializing in butchery, smoking techniques, and our signature steaks and scratch soups, Jeremy helps craft weekly blackboard specials that highlight seasonal Alabama produce.",
+    },
+    {
+      name: "Jon Spencer",
+      role: "Sous Chef",
+      image: "/images/stclair/John-Spencer-headshot.jpg",
+      bio: "With dedication to precision prep, Southern pastry, and brunch favorites, Jon ensures our homemade biscuits, slow-simmered gravies, and desserts meet our high standards every single day.",
+    },
+  ] as TeamMember[],
+  gallery: [
+    { id: "1", src: "/images/stclair/steak-baked-potato.jpg", title: "Hand-Cut Certified Angus Beef Steak & Loaded Baked Potato", category: "food" },
+    { id: "2", src: "/images/stclair/scallops.jpg", title: "Pan-Seared Sea Scallops on Creamy Southern Grits", category: "food" },
+    { id: "3", src: "/images/stclair/St-Clair-southern-oysters.jpg", title: "Fresh Southern Gulf Oysters on the Half Shell", category: "food" },
+    { id: "4", src: "/images/stclair/St-Clair-Tavern-cocktail.jpg", title: "Handcrafted Smoked Bourbon Old Fashioned", category: "cocktails" },
+    { id: "5", src: "/images/stclair/burger.jpg", title: "Exit 158 Double Smashed Tavern Burger", category: "food" },
+    { id: "6", src: "/images/stclair/St-Clair-shrimps-and-grits.jpg", title: "Signature Gulf Shrimp & Stone-Ground Grits", category: "food" },
+    { id: "7", src: "/images/stclair/fried-green-tomatoes.jpg", title: "Thick-Cut Fried Green Tomatoes with Bacon-Onion Jam", category: "food" },
+    { id: "8", src: "/images/stclair/St-Clair-smoked-chicken-wings.jpg", title: "Jumbo Smoked Chicken Wings with Asian Glaze", category: "food" },
+    { id: "9", src: "/images/stclair/ahi-tuna-salad.jpg", title: "Sesame Crusted Ahi Tuna Salad with Crisp Wonton Chips", category: "food" },
+    { id: "10", src: "/images/stclair/St-Clair-french-onion-soup.jpg", title: "Caramelized French Onion Soup with Melted Gruyère", category: "food" },
+    { id: "11", src: "/images/stclair/chicken-picala.jpg", title: "Pan-Seared Chicken Piccata with Lemon Caper Butter", category: "food" },
+    { id: "12", src: "/images/stclair/St-Clair-Tavern-cocktail2.jpg", title: "Seasonal Craft Cocktail with Fresh Botanicals", category: "cocktails" },
+    { id: "13", src: "/images/stclair/steal-potatoes-and-eggs.jpg", title: "Sunday Brunch Steak & Eggs with Crispy Potatoes", category: "food" },
+    { id: "14", src: "/images/stclair/homemade-biscuits.jpg", title: "Fresh Housemade Buttermilk Biscuits with Chef's Jam", category: "food" },
+    { id: "15", src: "/images/stclair/StClair-bldg-scaled.jpg", title: "The Historic St. Clair Exterior in Pell City, Alabama", category: "atmosphere" },
+    { id: "16", src: "/images/stclair/St-Clair-bang-bang-shrimp.jpg", title: "Crispy Bang Bang Shrimp with Asian Slaw & Lime", category: "food" },
+  ] as GalleryPhoto[],
+};
+
+export const MENU_CATEGORIES = [
+  { id: "brunch", label: "Sunday Brunch" },
+  { id: "lunch", label: "Lunch" },
+  { id: "dinner", label: "Dinner" },
+  { id: "happy-hour", label: "Happy Hour" },
+  { id: "cocktails", label: "Craft Cocktails" },
+  { id: "beer-wine", label: "Wine & Beer" },
+  { id: "desserts", label: "Desserts" },
+];
+
+export const FULL_MENU: { [category: string]: MenuItem[] } = {
+  brunch: [
+    {
+      id: "b1",
+      name: "Biscuit, Butter & Jam",
+      price: "$8",
+      description: "Fresh housemade warm buttermilk biscuits served with chef's selection of artisan whipped butter & seasonal berry jam.",
+      category: "Starters & Shareables",
+      image: "/images/stclair/homemade-biscuits.jpg",
+    },
+    {
+      id: "b2",
+      name: "Salad St. Clair",
+      price: "$11",
+      description: "Mixed baby greens, candied Georgia pecans, shaved red onion, garden tomato, flash-fried goat cheese balls, maple-dijon vinaigrette.",
+      category: "Starters & Shareables",
+    },
+    {
+      id: "b3",
+      name: "French Onion Soup",
+      price: "$10",
+      description: "Slow-caramelized sweet onions, toasted French country bread, melted bubbling Gruyère cheese.",
+      category: "Starters & Shareables",
+      image: "/images/stclair/St-Clair-french-onion-soup.jpg",
+    },
+    {
+      id: "b4",
+      name: "Breakfast of Champions",
+      price: "$15",
+      description: "Two eggs cooked to order, choice of applewood bacon, Conecuh sausage or smoked ham, house biscuit, crispy fried potatoes, cheese grits or fresh fruit.",
+      category: "Brunch Mains",
+    },
+    {
+      id: "b5",
+      name: "Tavern Steak Bowl",
+      price: "$16",
+      description: "Golden fried potatoes topped with aged cheddar, parmesan, tender smoked beef, sautéed mushrooms, caramelized onions, scallions, fresno pepper & a sunny-side-up farm egg.",
+      category: "Brunch Mains",
+      tag: "Guest Favorite",
+    },
+    {
+      id: "b6",
+      name: "Eggs Benedict",
+      price: "$14",
+      description: "Poached farm eggs over toasted English muffin, silky housemade hollandaise, choice of applewood bacon, Conecuh sausage or Virginia smoked ham, served with fried potatoes.",
+      category: "Brunch Mains",
+    },
+    {
+      id: "b7",
+      name: "Fried Green Tomato & Shrimp Stack",
+      price: "$18",
+      description: "Crispy cornmeal-crusted green tomatoes, bacon-onion jam, chimichurri drizzle, fresh baby arugula, wild Gulf grilled shrimp.",
+      category: "Brunch Mains",
+      image: "/images/stclair/fried-green-tomatoes.jpg",
+    },
+    {
+      id: "b8",
+      name: "Exit 158 Smashburger",
+      price: "$15",
+      description: "Two 4oz smashed Certified Angus Beef patties, sharp cheddar, lettuce, garden tomato, red onion, housemade pickles, spicy aioli on a toasted brioche bun with fries.",
+      category: "Brunch Mains",
+      image: "/images/stclair/burger.jpg",
+      tag: "House Specialty",
+    },
+    {
+      id: "b9",
+      name: "Shrimp & Grits",
+      price: "$24",
+      description: "Jumbo Gulf shrimp, stone-ground creamy cheese grits, Southern holy trinity of peppers & onions, rich Cajun cream sauce, scallions.",
+      category: "Brunch Mains",
+      image: "/images/stclair/St-Clair-shrimps-and-grits.jpg",
+    },
+    {
+      id: "b10",
+      name: "8oz Baseball Cut Sirloin & Eggs",
+      price: "$30",
+      description: "Certified Angus Beef thick-cut sirloin char-grilled, two eggs cooked to order, crispy seasoned potatoes.",
+      category: "Steak & Eggs",
+      image: "/images/stclair/steal-potatoes-and-eggs.jpg",
+    },
+    {
+      id: "b11",
+      name: "14oz Certified Angus NY Strip & Eggs",
+      price: "$48",
+      description: "14oz center-cut NY Strip steak char-grilled with compound herb butter, two eggs cooked to order, crispy potatoes.",
+      category: "Steak & Eggs",
+    },
+  ],
+  lunch: [
+    {
+      id: "l1",
+      name: "Tavern Wings & Fries",
+      price: "$16",
+      description: "Eight jumbo in-house hickory smoked wings. Choice of Asian style with Yum Yum drizzle or classic mild Buffalo sauce. Served with hand-cut fries.",
+      category: "Soups & Shareables",
+      image: "/images/stclair/St-Clair-smoked-chicken-wings.jpg",
+    },
+    {
+      id: "l2",
+      name: "Bang Bang Shrimp",
+      price: "$15",
+      description: "Crispy fried shrimp tossed in sweet and spicy chili sauce, crispy wonton chips, crunchy Asian slaw, fresh scallion, lime wedge.",
+      category: "Soups & Shareables",
+      image: "/images/stclair/St-Clair-bang-bang-shrimp.jpg",
+    },
+    {
+      id: "l3",
+      name: "Fried Green Tomato & Shrimp",
+      price: "$16",
+      description: "Thick-cut cornmeal crusted green tomatoes, zesty chimichurri, savory bacon-onion jam, bed of mixed baby greens.",
+      category: "Soups & Shareables",
+      image: "/images/stclair/fried-green-tomatoes.jpg",
+    },
+    {
+      id: "l4",
+      name: "Ahi Tuna Salad",
+      price: "$18",
+      description: "Seared rare ahi tuna, mixed baby greens, Napa cabbage, shredded carrots, pickled red onion, diced tomatoes, yum yum drizzle, fried wonton chips.",
+      category: "Salads",
+      image: "/images/stclair/ahi-tuna-salad.jpg",
+    },
+    {
+      id: "l5",
+      name: "Exit 158 Smashburger",
+      price: "$15",
+      description: "Two 4oz smashed Angus beef patties, melted cheddar, lettuce, red onion, tomato, housemade dill pickles, spicy aioli on brioche with fries.",
+      category: "Handhelds",
+      image: "/images/stclair/burger.jpg",
+    },
+    {
+      id: "l6",
+      name: "Alaskan Cod Sandwich",
+      price: "$16",
+      description: "Tempura fried wild Alaskan cod, crisp shredded lettuce, red onion, vine tomato, housemade pickles, fresh lemon-dill tartar sauce.",
+      category: "Handhelds",
+    },
+    {
+      id: "l7",
+      name: "Smoked Steak Sandwich",
+      price: "$18",
+      description: "Shaved tender smoked steak with melted provolone cheese, grilled sweet onions, sautéed mushrooms, horseradish cream on a toasted hoagie.",
+      category: "Handhelds",
+    },
+    {
+      id: "l8",
+      name: "Fish & Chips",
+      price: "$16",
+      description: "Tempura battered wild cod fried golden brown, housemade lemon-dill tartar sauce, seasoned fries.",
+      category: "Lunch Mains",
+      image: "/images/stclair/fried-fish-and-fries.jpg",
+    },
+    {
+      id: "l9",
+      name: "Shrimp & Chips",
+      price: "$18",
+      description: "Eight Gulf shrimp tempura fried, grilled or blackened, lemon-dill tartar, seasoned fries.",
+      category: "Lunch Mains",
+      image: "/images/stclair/shrimp-and-fries.jpg",
+    },
+    {
+      id: "l10",
+      name: "Steak Frite",
+      price: "$30",
+      description: "6oz Certified Angus Beef sirloin cooked medium rare, house chimichurri, shaved parmesan, spicy aioli, crispy fries.",
+      category: "Lunch Mains",
+    },
+  ],
+  dinner: [
+    {
+      id: "d1",
+      name: "Pan-Seared Sea Scallops on Grits",
+      price: "$34",
+      description: "Jumbo Atlantic sea scallops pan-seared in brown butter, served over creamy stone-ground cheese grits with charred sweet corn & pancetta relish.",
+      category: "Seafood & Coastal",
+      image: "/images/stclair/scallops.jpg",
+      tag: "Chef Signature",
+    },
+    {
+      id: "d2",
+      name: "Brown Butter Caper Mahi Mahi",
+      price: "$32",
+      description: "Fresh seared Mahi Mahi basted in brown butter & capers, sweet potato mash, charred cipollini onions, steamed baby carrots.",
+      category: "Seafood & Coastal",
+      tag: "Seasonal Special",
+    },
+    {
+      id: "d3",
+      name: "Signature Shrimp & Grits",
+      price: "$26",
+      description: "Jumbo wild Gulf shrimp sautéed with Southern trinity, green onions, and creamy cajun cream reduction over heirloom cheddar grits.",
+      category: "Seafood & Coastal",
+      image: "/images/stclair/St-Clair-shrimps-and-grits.jpg",
+    },
+    {
+      id: "d4",
+      name: "Certified Angus 14oz NY Strip",
+      price: "$48",
+      description: "Center-cut Certified Angus Beef strip steak char-grilled with compound roasted garlic herb butter, garlic mashed red potatoes & seasonal vegetable.",
+      category: "Certified Angus Steaks",
+      image: "/images/stclair/steak-baked-potato.jpg",
+      tag: "Prime Cut",
+    },
+    {
+      id: "d5",
+      name: "8oz Baseball Cut Sirloin",
+      price: "$32",
+      description: "Thick-cut Certified Angus Beef sirloin steak char-broiled to temperature, red wine demi-glace, loaded baked potato or garlic mashed potatoes.",
+      category: "Certified Angus Steaks",
+    },
+    {
+      id: "d6",
+      name: "Chicken Piccata",
+      price: "$24",
+      description: "Pan-seared tender chicken breast basted in white wine, fresh lemon juice, capers, and garlic butter over delicate buttered angel hair pasta.",
+      category: "Poultry & Specialties",
+      image: "/images/stclair/chicken-picala.jpg",
+    },
+    {
+      id: "d7",
+      name: "Goat Belly Brussels",
+      price: "$14",
+      description: "Flash fried Brussels sprouts tossed in maple-dijon vinaigrette, crispy smoked pork belly, crumbled artisan goat cheese.",
+      category: "Shareables",
+    },
+    {
+      id: "d8",
+      name: "St. Clair Pub Cheese",
+      price: "$12",
+      description: "Seasonal on-tap beer blended with cream cheese, sharp cheddar, gruyère, smoked red peppers & grilled onions, served chilled with crispy pork skins.",
+      category: "Shareables",
+    },
+  ],
+  "happy-hour": [
+    {
+      id: "h1",
+      name: "Happy Hour Tavern Burger",
+      price: "$12",
+      description: "1/4 lb smashed beef burger with melted cheddar cheese, crisp lettuce, vine tomato, onion, pickle & mayo on toasted brioche bun.",
+      category: "Happy Hour Bites",
+      image: "/images/stclair/burger.jpg",
+    },
+    {
+      id: "h2",
+      name: "Half Order Smoked Wings (4 Wings)",
+      price: "$6",
+      description: "Four slow-smoked jumbo wings tossed in your choice of Asian Glazed, Barbecue, or Mild Buffalo sauce.",
+      category: "Happy Hour Bites",
+      image: "/images/stclair/St-Clair-smoked-chicken-wings.jpg",
+    },
+    {
+      id: "h3",
+      name: "Fried Green Tomato & Shrimp Duo",
+      price: "$11",
+      description: "Thick-cut fried green tomatoes topped with sweet bacon-onion jam, grilled Gulf shrimp & chimichurri sauce over mixed greens.",
+      category: "Happy Hour Bites",
+      image: "/images/stclair/fried-green-tomatoes.jpg",
+    },
+    {
+      id: "h4",
+      name: "Pew Pew Shrimp",
+      price: "$7",
+      description: "Small appetizer order of our crispy Bang Bang shrimp with sweet spicy chili drizzle and scallions.",
+      category: "Happy Hour Bites",
+    },
+  ],
+  cocktails: [
+    {
+      id: "c1",
+      name: "Cinnamon Apple Bourbon Smash",
+      price: "$15",
+      description: "Four Roses Bourbon, fresh lemon juice, housemade cinnamon ginger syrup, apple butter, aromatic orange bitters.",
+      category: "Craft Cocktails",
+      image: "/images/stclair/St-Clair-Tavern-cocktail.jpg",
+      tag: "Signature",
+    },
+    {
+      id: "c2",
+      name: "Peppermint Espresso Martini",
+      price: "$14",
+      description: "Van Gogh Espresso Vodka, Kahlúa, Chambord, pure cranberry juice, shaken vigorously with a velvety crema.",
+      category: "Craft Cocktails",
+    },
+    {
+      id: "c3",
+      name: "Snowglobe Cosmo",
+      price: "$15",
+      description: "Tito's Handmade Vodka, white cranberry juice, fresh lime juice, Cointreau, food-grade shimmering edible glitter.",
+      category: "Craft Cocktails",
+      image: "/images/stclair/cocktail.jpg",
+    },
+    {
+      id: "c4",
+      name: "Crimson Solstice",
+      price: "$14",
+      description: "Espolòn Blanco Tequila, fresh lemon & lime, pure cane simple syrup, Cointreau, Midori melon liqueur.",
+      category: "Craft Cocktails",
+      image: "/images/stclair/St-Clair-Tavern-cocktail2.jpg",
+    },
+    {
+      id: "c5",
+      name: "Blanton's Single Barrel Bourbon",
+      price: "$20",
+      description: "The original single barrel Kentucky bourbon whiskey, served neat or over an artisanal large rock.",
+      category: "Allocated Whiskeys",
+    },
+    {
+      id: "c6",
+      name: "Buffalo Trace Kentucky Straight",
+      price: "$14",
+      description: "Rich and complex whiskey with notes of vanilla, toffee, and candied fruit.",
+      category: "Allocated Whiskeys",
+    },
+    {
+      id: "c7",
+      name: "Yellowstone Limited Edition",
+      price: "$35",
+      description: "Rare blend of 7-year, 15-year and 16-year bourbons finished in handcrafted special casks.",
+      category: "Allocated Whiskeys",
+    },
+  ],
+  "beer-wine": [
+    {
+      id: "w1",
+      name: "Sean Minor Chardonnay (Central Coast, CA)",
+      price: "$11 Glass / $39 Bottle",
+      description: "Crisp green apple, toasted brioche, subtle vanilla bean, balanced minerality.",
+      category: "White Wine Highlights",
+    },
+    {
+      id: "w2",
+      name: "Aquamarine Sauvignon Blanc (New Zealand)",
+      price: "$11 Glass / $39 Bottle",
+      description: "Bright passionfruit, zesty lime, lemongrass, vibrant refreshing acidity.",
+      category: "White Wine Highlights",
+    },
+    {
+      id: "w3",
+      name: "Fox Glove Cabernet Sauvignon (Paso Robles, CA)",
+      price: "$12 Glass / $42 Bottle",
+      description: "Ripe dark blackberry, cassis, cedar, rounded velvety tannins.",
+      category: "Red Wine Highlights",
+    },
+    {
+      id: "w4",
+      name: "Justin Girardin Bourgogne Pinot Noir (Burgundy, France)",
+      price: "$14 Glass / $50 Bottle",
+      description: "Elegant wild strawberry, forest floor, subtle baking spice, refined French oak.",
+      category: "Red Wine Highlights",
+    },
+    {
+      id: "w5",
+      name: "Good People IPA & Coffee Oatmeal Stout",
+      price: "$7 - $9",
+      description: "Birmingham, Alabama local favorite craft ales on tap and in cans.",
+      category: "Alabama Craft Brews",
+    },
+    {
+      id: "w6",
+      name: "TrimTab Paradise Now Raspberry Berliner Weisse",
+      price: "$7",
+      description: "Birmingham brewed tart wheat ale brewed with raspberries and tart cherries.",
+      category: "Alabama Craft Brews",
+    },
+  ],
+  desserts: [
+    {
+      id: "de1",
+      name: "Cinna-Vanilla Apple Bread Pudding",
+      price: "$8",
+      description: "Warm brioche baked with caramelized spiced apples and cinnamon vanilla custard, served à la mode with vanilla bean ice cream.",
+      category: "House Desserts",
+    },
+    {
+      id: "de2",
+      name: "Heath's Coffee-Toffee Brownie",
+      price: "$9",
+      description: "Fudge chocolate brownie with sweet coffee sauce, chopped dark chocolate, roasted almond toffee, scoop of vanilla ice cream.",
+      category: "House Desserts",
+      tag: "Customer Favorite",
+    },
+    {
+      id: "de3",
+      name: "Candied Pecan Chocolate Chip Cheesecake",
+      price: "$10",
+      description: "Creamy New York style cheesecake folded with chocolate chips and topped with Southern candied Georgia pecans & caramel drizzle.",
+      category: "House Desserts",
+    },
+    {
+      id: "de4",
+      name: "Pumpkin Spice Crème Brûlée",
+      price: "$9",
+      description: "Silky pumpkin custard infused with warm autumn spices beneath a brittle caramelized turbinado sugar crust.",
+      category: "House Desserts",
+    },
+  ],
+};

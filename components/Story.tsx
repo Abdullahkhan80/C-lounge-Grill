@@ -7,27 +7,27 @@ import { ACCOLADES, GOODWILL_DATA } from "@/data/restaurantData";
 export default function Story() {
   const stats = [
     {
-      value: "One",
-      sub: "Michelin Star",
-      label: "Awarded annually since the DC Guide’s inaugural edition",
+      value: "Top Tier",
+      sub: "Certified Angus Beef",
+      label: "Hand-cut daily in-house in Pell City, Alabama",
       icon: Award,
     },
     {
-      value: "2013",
-      sub: "Established",
-      label: "Over a decade of warm memories & celebrations on 8th St SE",
+      value: "30+",
+      sub: "Wines by the Glass",
+      label: "Expansive cellar selections and craft Alabama drafts",
       icon: Utensils,
     },
     {
-      value: GOODWILL_DATA.mealsDonated,
-      sub: "Meals Donated",
-      label: "A meal funded for every guest through hunger relief programs",
+      value: "2022",
+      sub: "Established",
+      label: "Pell City's beloved destination on Dr John Haynes",
       icon: Heart,
     },
     {
-      value: "100%",
-      sub: "Scratch & Hearth",
-      label: "Potato bread baked fresh every hour; local farm partnerships",
+      value: "7 Days",
+      sub: "Warm Hospitality",
+      label: "Lunch, dinner, craft cocktails & Sunday brunch",
       icon: Sparkles,
     },
   ];
@@ -64,27 +64,25 @@ export default function Story() {
             className="lg:col-span-7 space-y-6"
           >
             <h2 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#FBF9F5] font-normal leading-[1.12]">
-              Unpretentious Elegance. <br />
-              <span className="italic text-[#E8CA72]">Culinary Joy Without Pretension.</span>
+              Casual Dining. <br />
+              <span className="italic text-[#E8CA72]">Exceptional Food in Pell City.</span>
             </h2>
 
             <div className="space-y-4 text-[#DCD6CB] text-base md:text-lg font-light leading-relaxed">
               <p>
-                When Chef Aaron Silverman unlocked the doors of a vintage 1890s townhouse on
-                Barracks Row in October 2013, the concept was unapologetically simple:
-                create a restaurant that feels like the greatest dinner party you’ve ever
-                attended at an eccentric, deeply generous friend’s home.
+                When The St. Clair and Tavern at The St. Clair opened in Pell City, Alabama,
+                the vision was clear: create a welcoming neighborhood gathering place where
+                fine culinary craftsmanship meets warm Southern hospitality.
               </p>
               <p>
-                No stifling dress codes. No whispered dining rooms. Instead, an energetic
-                soundtrack of classic vinyl, flickering candlelight dancing across exposed
-                antique brick, and a team driven by an obsession with thoughtful hospitality.
+                Two distinct dining atmospheres live under one roof: the lively Tavern with
+                its 20-seat handcrafted bar, craft cocktails, and walk-in spirit; and the
+                intimate St. Clair Dining Room for celebratory steaks, fresh seafood, and milestone toasts.
               </p>
               <p>
-                Over ten years later—honored with One Michelin Star and Bon Appétit’s Best
-                New Restaurant in America—our North Star remains unchanged: making people
-                genuinely happy through innovative, flavor-drenched dishes and memories that
-                linger long after the final glass of Champagne.
+                Named after Major General Arthur St. Clair, our kitchen honors timeless tradition
+                with hand-cut Certified Angus Beef steaks, wild Gulf shrimp and grits, crispy
+                smashed burgers, and over 30 wines by the glass poured seven days a week.
               </p>
             </div>
 
@@ -95,15 +93,14 @@ export default function Story() {
               className="p-6 rounded-2xl bg-[#141210] border border-white/10 relative mt-8 shadow-xl"
             >
               <span className="absolute -top-3 left-6 px-3 py-0.5 bg-[#C0635A] text-white text-[10px] uppercase tracking-widest font-semibold rounded-full shadow">
-                Chef Aaron Silverman
+                The St. Clair Culinary Brigade
               </span>
               <p className="font-editorial italic text-lg md:text-xl text-[#FBF9F5] leading-snug mb-3">
-                “Food is the catalyst. But what people remember for years is how you made
-                them feel. We built Rose’s to be an everyday sanctuary of warmth, laughter,
-                and generosity.”
+                “Great food doesn’t require pretension. It requires passion, hand-cut steaks,
+                fresh coastal ingredients, and hospitality that makes everyone feel right at home.”
               </p>
               <div className="text-xs text-stone-400">
-                Founding Chef & Owner, Rose’s Luxury / Pineapple and Pearls
+                The St. Clair Restaurant & Tavern • Pell City, Alabama
               </div>
             </motion.div>
           </motion.div>
@@ -117,25 +114,25 @@ export default function Story() {
             className="lg:col-span-5 relative"
           >
             <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Primary Image: Cozy Townhouse Interior */}
+              {/* Primary Image: St. Clair Dining Room */}
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
                 <img
-                  src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=900&q=80"
-                  alt="Rose's Luxury Townhouse Dining Room"
+                  src="/images/stclair/StClair-dining-room-scaled.jpg"
+                  alt="The St. Clair Dining Room in Pell City, Alabama"
                   className="w-full h-[440px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-5 left-5 right-5 text-stone-200">
                   <p className="text-xs uppercase tracking-wider text-[#D4AF37] font-medium mb-1">
-                    The Townhouse Parlor
+                    The St. Clair Dining Room
                   </p>
                   <p className="text-sm font-light text-stone-300">
-                    Candlelit banquettes and open kitchen hearth on 8th Street SE.
+                    Candlelit banquettes, prime steaks, and warm Southern hospitality in Pell City, AL.
                   </p>
                 </div>
               </div>
 
-              {/* Floating Inset Card: Signature Dish with Gentle Float */}
+              {/* Floating Inset Card: Signature Steak */}
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
@@ -143,20 +140,20 @@ export default function Story() {
               >
                 <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 border border-[#D4AF37]/30">
                   <img
-                    src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80"
-                    alt="Lychee Salad Signature"
+                    src="/images/stclair/steak-baked-potato.jpg"
+                    alt="Certified Angus Beef Steak"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div>
                   <span className="text-[10px] uppercase tracking-wider text-[#C0635A] font-semibold">
-                    The Iconic Favorite
+                    The Signature Cut
                   </span>
                   <h4 className="text-xs font-medium text-stone-100">
-                    Pork Sausage & Lychee Salad
+                    Hand-Cut Ribeye & Loaded Potato
                   </h4>
                   <p className="text-[11px] text-stone-400">
-                    On the menu since opening night in 2013.
+                    Certified Angus Beef flame-broiled daily.
                   </p>
                 </div>
               </motion.div>

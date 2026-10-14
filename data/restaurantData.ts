@@ -34,24 +34,29 @@ export interface PressAccolade {
 }
 
 export const RESTAURANT_INFO = {
-  name: "Rose's Luxury",
-  tagline: "Making people happy since 2013.",
-  subheading: "Michelin-Starred Dining on Capitol Hill",
-  address: "717 8th Street SE, Washington, DC 20003",
-  neighborhood: "Barracks Row, Capitol Hill",
-  metro: "Eastern Market Metro Station (Orange / Blue / Silver Lines, 2 blocks)",
-  phone: "(202) 742-3570",
-  email: "hello@rosesluxury.com",
-  michelinRating: "One Michelin Star",
-  michelinYears: "2017 – Present",
-  bonAppetitRating: "Best New Restaurant in America (2014)",
+  name: "The St. Clair Restaurant & Tavern",
+  tagline: "Casual Dining. Exceptional Food.",
+  subheading: "Steaks, Coastal Seafood & Cocktails in Pell City, AL",
+  address: "2413 Dr John Haynes, Pell City, AL 35125",
+  neighborhood: "Historic Downtown Pell City, AL",
+  phone: "(659) 658-4271",
+  email: "info@thestclairpellcity.com",
+  resyUrl: "https://resy.com/cities/pll/the-st-clair",
+  facebookUrl: "https://www.facebook.com/thestclairpellcity/",
+  rating: "4.8 Stars (Hundreds of Verified Diner Reviews)",
+  michelinRating: "Culinary Excellence & Fine Steaks",
+  michelinYears: "2022 – Present",
+  bonAppetitRating: "Best Casual Dining & Steaks in Pell City",
+  metro: "Conveniently located off I-20 at Dr John Haynes in Pell City",
   hours: [
-    { days: "Tuesday – Thursday", seatings: "5:00 PM – 9:30 PM", notes: "Dinner Service" },
-    { days: "Friday – Saturday", seatings: "4:45 PM – 10:00 PM", notes: "Dinner & Late Pairings" },
-    { days: "Sunday – Monday", seatings: "Closed", notes: "Available for Private Buyouts" }
+    { days: "Monday – Wednesday", seatings: "11:00 AM – 8:00 PM", notes: "Lunch, Happy Hour & Dinner" },
+    { days: "Thursday – Friday", seatings: "11:00 AM – 9:00 PM", notes: "Lunch, Happy Hour & Dinner" },
+    { days: "Saturday", seatings: "11:00 AM – 9:00 PM", notes: "Dinner Menu All Day" },
+    { days: "Sunday Brunch", seatings: "11:00 AM – 3:00 PM", notes: "Open Seating, Walk-Ins Welcome" },
+    { days: "Sunday Dinner", seatings: "3:00 PM – 8:00 PM", notes: "Full Evening Dinner Service" }
   ],
-  dressCode: "Come as you are. Casual elegance is celebrated.",
-  corkageFee: "$45 per 750ml bottle (max 2 bottles per party)"
+  dressCode: "Casual Dining meets Upscale Food. Warm Southern hospitality.",
+  corkageFee: "Full bar featuring 30+ wines by the glass and 80+ cellar bottles"
 };
 
 export const MENU_CATEGORIES: MenuCategory[] = [
