@@ -12,24 +12,30 @@ import {
   UtensilsCrossed, 
   Wine, 
   Sparkles, 
-  ExternalLink, 
   ChevronRight, 
-  Users, 
-  HeartHandshake, 
-  Compass, 
-  Coffee 
+  Flame,
+  Music,
+  ExternalLink,
+  ShieldCheck,
+  Compass,
+  ArrowUpRight
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import { StClairNavbar } from "@/components/StClairNavbar";
-import { StClairFooter } from "@/components/StClairFooter";
-import { ReservationModal } from "@/components/ReservationModal";
-import { CateringInquiryModal } from "@/components/CateringInquiryModal";
-import { ImageLightboxModal } from "@/components/ImageLightboxModal";
-import { MobileReserveBar } from "@/components/MobileReserveBar";
-import { ST_CLAIR_DATA, GalleryPhoto } from "@/data/stClairData";
+import { CLoungeNavbar } from "@/components/cLounge/Navbar";
+import { CLoungeFooter } from "@/components/cLounge/Footer";
+import { ReservationModal } from "@/components/cLounge/ReservationModal";
+import { ImageLightboxModal } from "@/components/cLounge/ImageLightboxModal";
+import { 
+  C_LOUNGE_INFO, 
+  EXPERIENCES, 
+  SAMPLE_MENU_ITEMS, 
+  GALLERY_PHOTOS, 
+  SAMPLE_EVENTS,
+  GalleryPhoto 
+} from "@/data/cLoungeData";
 
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: { 
     opacity: 1, 
     y: 0,
@@ -48,740 +54,649 @@ const staggerContainer: Variants = {
   }
 };
 
-export default function StClairHomePage() {
+export default function HomePage() {
   const [reservationOpen, setReservationOpen] = useState(false);
-  const [cateringOpen, setCateringOpen] = useState(false);
-  const [activePhoto, setActivePhoto] = useState<GalleryPhoto | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<GalleryPhoto | null>(null);
 
-  // Featured Menu Highlights for Home
-  const featuredDishes = [
-    {
-      title: "14oz Certified Angus NY Strip",
-      price: "$48",
-      category: "The St. Clair Dinner",
-      desc: "Center-cut Certified Angus Beef strip steak char-broiled with roasted garlic compound butter, loaded baked potato & seasonal vegetables.",
-      image: "/images/stclair/steak-baked-potato.jpg",
-    },
-    {
-      title: "Pan-Seared Sea Scallops on Grits",
-      price: "$34",
-      category: "Chef Signature",
-      desc: "Jumbo Atlantic sea scallops pan-seared in brown butter over stone-ground creamy cheese grits with charred sweet corn & pancetta relish.",
-      image: "/images/stclair/scallops.jpg",
-    },
-    {
-      title: "Exit 158 Smashburger",
-      price: "$15",
-      category: "Tavern Specialty",
-      desc: "Two 4oz smashed Certified Angus Beef patties, sharp cheddar, lettuce, red onion, vine tomato, housemade pickles, spicy aioli on toasted brioche.",
-      image: "/images/stclair/burger.jpg",
-    },
-    {
-      title: "Signature Gulf Shrimp & Grits",
-      price: "$24",
-      category: "Southern Tradition",
-      desc: "Wild Gulf shrimp, stone-ground heirloom grits, trinity of peppers and onions, rich Cajun cream reduction.",
-      image: "/images/stclair/St-Clair-shrimps-and-grits.jpg",
-    },
-  ];
+  // Featured menu items for homepage preview
+  const previewDishes = SAMPLE_MENU_ITEMS.slice(0, 4);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#141312] text-[#faf7f0] pb-16 sm:pb-0">
-      {/* 1. Branded Navigation */}
-      <StClairNavbar onOpenReservation={() => setReservationOpen(true)} />
+    <div className="min-h-screen flex flex-col bg-[#101010] text-[#f5f0e8] overflow-x-hidden selection:bg-[#c9a56a] selection:text-[#101010]">
+      {/* 1. Navigation */}
+      <CLoungeNavbar onOpenReservation={() => setReservationOpen(true)} />
 
       <main className="flex-1">
-        {/* 2 - 5. Full-Screen Restaurant Hero Photograph */}
-        <section className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-36 sm:pt-40 md:pt-44 pb-20 sm:pb-28">
-          {/* Hero Photograph with Dark Espresso Vignette */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/images/stclair/steak-baked-potato.jpg"
-              alt="Certified Angus Beef steak at The St. Clair"
-              fill
-              priority
-              className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-            />
-            {/* Rich cinematic dark overlays */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/75 to-black/80" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#141312] via-transparent to-black/60" />
-          </div>
+        {/* =========================================================================
+            2. HERO SECTION — Inspired by Savoire & Agency Luxury Editorial Layout
+            ========================================================================= */}
+        <section className="relative pt-32 sm:pt-36 lg:pt-40 pb-16 lg:pb-24 overflow-hidden">
+          {/* Subtle background ambient gradients */}
+          <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#c9a56a]/5 blur-[140px] pointer-events-none" />
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 my-auto"
-          >
-            {/* Elegant Subtitle */}
-            <motion.div variants={fadeInUp} className="inline-flex">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1a1917]/90 border border-[#c5a059]/40 backdrop-blur-md shadow-lg shadow-black/50">
-                <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                <span className="text-[11px] sm:text-xs font-sans font-bold uppercase tracking-[0.25em] text-[#dfbe7d]">
-                  Pell City, Alabama
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h1
-              variants={fadeInUp}
-              className="font-editorial text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white leading-[1.08] max-w-4xl mx-auto"
-            >
-              Casual Dining. <br />
-              <span className="italic font-normal text-[#dfbe7d]">Exceptional Food.</span>
-            </motion.h1>
-
-            {/* Narrative lead */}
-            <motion.p
-              variants={fadeInUp}
-              className="text-sm sm:text-base md:text-lg text-slate-300 font-sans max-w-2xl mx-auto leading-relaxed font-light"
-            >
-              Welcome to The St. Clair and Tavern at The St. Clair. Hand-cut Certified Angus Beef steaks, fresh coastal seafood, weekly chef specials, and warm Southern hospitality under one roof.
-            </motion.p>
-
-            {/* Primary and Secondary CTAs */}
-            <motion.div
-              variants={fadeInUp}
-              className="pt-2 flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto"
-            >
-              <Link
-                href="/menu"
-                className="w-full xs:w-auto px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#dfbe7d] via-[#c5a059] to-[#a07f3d] hover:brightness-110 text-[#0d0c0b] font-bold text-xs sm:text-sm tracking-wide shadow-xl transition-all flex items-center justify-center gap-2 group cursor-pointer"
-              >
-                <span>Explore Our Menu</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setReservationOpen(true)}
-                className="w-full xs:w-auto px-7 py-3.5 rounded-xl bg-black/40 hover:bg-black/60 text-white font-bold text-xs sm:text-sm tracking-wide border border-white/20 backdrop-blur-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Calendar className="w-4 h-4 text-[#c5a059]" />
-                <span>Reserve a Table</span>
-              </motion.button>
-            </motion.div>
-
-            {/* Responsive Highlights Bar */}
-            <motion.div
-              variants={fadeInUp}
-              className="pt-8 border-t border-white/10 max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-6 text-xs text-slate-300"
-            >
-              <div className="flex items-center justify-center gap-2 py-1 bg-white/[0.02] sm:bg-transparent rounded-lg">
-                <UtensilsCrossed className="w-3.5 h-3.5 text-[#c5a059]" />
-                <span>Open 7 Days a Week</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 py-1 bg-white/[0.02] sm:bg-transparent rounded-lg">
-                <Wine className="w-3.5 h-3.5 text-[#c5a059]" />
-                <span>30+ Wines by the Glass</span>
-              </div>
-              <div className="flex items-center justify-center gap-2 py-1 bg-white/[0.02] sm:bg-transparent rounded-lg">
-                <Coffee className="w-3.5 h-3.5 text-[#c5a059]" />
-                <span>Sunday Brunch 11am – 3pm</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </section>
-
-        {/* 6. Two Distinct Dining Experiences */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-20 sm:py-24 bg-[#141312] border-t border-white/10 relative"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-              <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block">
-                Two Distinct Experiences
-              </span>
-              <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white">
-                Find Your Dining Experience
-              </h2>
-              <p className="text-sm sm:text-base text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
-                Whether you’re gathering for lively drinks after work or planning an intimate evening celebration, we have a table prepared for you.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-              {/* Experience 1: The Tavern */}
-              <motion.div
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Top Editorial Row */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end pb-12 border-b border-[#222222]">
+              {/* Left Column: Eyebrow + Huge Heading */}
+              <motion.div 
+                initial="hidden"
+                animate="visible"
                 variants={fadeInUp}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
-                className="bg-[#1a1917] rounded-2xl border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all shadow-xl"
+                className="lg:col-span-7 space-y-3"
               >
-                <div className="relative h-60 sm:h-72 w-full overflow-hidden">
-                  <Image
-                    src="/images/stclair/burger.jpg"
-                    alt="The Tavern casual dining and burger"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1917] via-transparent to-transparent" />
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-[#c5a059] border border-white/10">
-                    Casual & Lively • Open 7 Days
-                  </span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#1b1b1b] border border-[#2a2a2a] text-[11px] uppercase tracking-[0.22em] text-[#c9a56a] font-medium">
+                  <MapPin className="w-3 h-3 text-[#c9a56a]" />
+                  <span>1735 E 172nd St · Bronx, New York</span>
                 </div>
-
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                  <div className="space-y-3">
-                    <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white">
-                      The Tavern
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                      A welcoming, laid-back dining room and full-service bar open seven days a week for lunch, dinner, and Sunday brunch. Enjoy local Alabama draft brews, signature smashburgers, jumbo smoked wings, and handcrafted cocktails.
-                    </p>
-                    <ul className="space-y-2 text-xs text-slate-400 pt-2 border-t border-white/5">
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Seating is first-come, first-served (Walk-ins welcome)</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Happy Hour Monday – Friday from 3:00 PM – 6:00 PM</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Sunday Brunch with open seating from 11:00 AM – 3:00 PM</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="pt-4 flex flex-col xs:flex-row xs:items-center justify-between gap-3 border-t border-white/10">
-                    <Link
-                      href="/menu"
-                      className="text-xs font-bold text-[#c5a059] hover:underline flex items-center gap-1"
-                    >
-                      <span>View Tavern Menu</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </Link>
-                    <span className="text-[11px] text-slate-400 font-medium">Walk-Ins Welcome Daily</span>
-                  </div>
-                </div>
+                
+                <h1 className="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#f5f0e8] leading-[1.08]">
+                  Good Food. <br />
+                  <span className="italic font-light text-[#c9a56a]">Great Vibes.</span> <br />
+                  Unforgettable Nights.
+                </h1>
               </motion.div>
 
-              {/* Experience 2: The St. Clair Dining Room */}
-              <motion.div
+              {/* Right Column: Narrative + Badges + Reserve CTA */}
+              <motion.div 
+                initial="hidden"
+                animate="visible"
                 variants={fadeInUp}
-                whileHover={{ y: -4 }}
-                transition={{ duration: 0.3 }}
-                className="bg-[#1a1917] rounded-2xl border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all shadow-xl"
+                className="lg:col-span-5 space-y-6 lg:pl-4"
               >
-                <div className="relative h-60 sm:h-72 w-full overflow-hidden">
-                  <Image
-                    src="/images/stclair/steak-baked-potato.jpg"
-                    alt="The St. Clair elevated steakhouse dining room"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1917] via-transparent to-transparent" />
-                  <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-[#dfbe7d] border border-white/10">
-                    Intimate & Elevated • Wed – Sat Dinner
-                  </span>
+                <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
+                  Discover dining, drinks, and an inviting lounge experience in the heart of the Bronx. Savor flame-grilled specialties, handcrafted cocktails, and celebratory evenings surrounded by warm hospitality.
+                </p>
+
+                <div className="flex flex-wrap items-center gap-6 pt-2">
+                  <div className="border-l-2 border-[#c9a56a] pl-3">
+                    <span className="block font-editorial text-2xl text-[#f5f0e8]">10472</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#a9a39a]">Bronx Destination</span>
+                  </div>
+                  <div className="border-l-2 border-[#c9a56a]/40 pl-3">
+                    <span className="block font-editorial text-2xl text-[#f5f0e8]">Grill & Lounge</span>
+                    <span className="text-[10px] uppercase tracking-wider text-[#a9a39a]">Full Experience</span>
+                  </div>
                 </div>
 
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-5">
-                  <div className="space-y-3">
-                    <h3 className="font-editorial text-2xl sm:text-3xl font-bold text-white">
-                      The St. Clair Dining Room
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                      A quieter, more intimate setting designed for date nights, milestone celebrations, and refined dining. Enjoy prime Certified Angus Beef steaks, pan-seared scallops, fresh oysters, and over 80 wine selections.
-                    </p>
-                    <ul className="space-y-2 text-xs text-slate-400 pt-2 border-t border-white/5">
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Open Wednesday through Saturday for refined dinner service</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Hand-cut Certified Angus Steaks & coastal Gulf seafood</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] shrink-0" />
-                        <span>Reservations recommended via Resy (walk-ins also accommodated)</span>
-                      </li>
-                    </ul>
-                  </div>
+                <div className="flex flex-wrap items-center gap-4 pt-1">
+                  <button
+                    onClick={() => setReservationOpen(true)}
+                    className="px-7 py-3.5 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.16em] transition-all rounded-sm shadow-xl hover:shadow-[#c9a56a]/20 flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span>Reserve Your Table</span>
+                  </button>
 
-                  <div className="pt-4 flex flex-col xs:flex-row xs:items-center justify-between gap-3 border-t border-white/10">
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={() => setReservationOpen(true)}
-                      className="px-4 py-2 rounded-lg bg-[#c5a059] text-[#0d0c0b] text-xs font-bold hover:brightness-110 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                    >
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>Reserve via Resy</span>
-                    </motion.button>
-                    <Link
-                      href="/experiences"
-                      className="text-xs text-slate-300 hover:text-white flex items-center gap-1"
-                    >
-                      <span>Learn More</span>
-                      <ChevronRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
+                  <Link
+                    href="/menu"
+                    className="px-6 py-3.5 border border-[#333333] hover:border-[#c9a56a] text-[#f5f0e8] hover:text-[#c9a56a] text-xs uppercase tracking-[0.16em] transition-all rounded-sm flex items-center gap-2"
+                  >
+                    <span>Explore Our Menu</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </motion.div>
             </div>
-          </div>
-        </motion.section>
 
-        {/* 7 & 8. Featured Menu Highlights */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-20 sm:py-24 bg-[#0d0c0b] border-t border-white/10"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-16">
-              <div>
-                <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block mb-2">
-                  Culinary Craft
-                </span>
-                <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white">
-                  Featured Menu Highlights
-                </h2>
+            {/* Bottom Cinematic Card with Overlaid Badges & Connectors */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="mt-8 relative rounded-md overflow-hidden border border-[#262626] shadow-2xl group"
+            >
+              <div className="relative h-[340px] sm:h-[480px] lg:h-[580px] w-full">
+                <Image
+                  src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=85"
+                  alt="Atmospheric candlelit dining and lounge setting at C Lounge & Grill"
+                  fill
+                  className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
+                  priority
+                />
+                {/* Vignette Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101010] via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#101010]/80 via-transparent to-[#101010]/60" />
+
+                {/* Overlaid Micro Badges with Lines (Matching Screenshot Aesthetic) */}
+                <div className="absolute top-8 left-8 hidden sm:flex items-center gap-3">
+                  <div className="w-8 h-[1px] bg-[#c9a56a]" />
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-[#f5f0e8] font-semibold bg-[#101010]/80 px-3 py-1 rounded backdrop-blur-sm border border-[#2a2a2a]">
+                    Warm Hospitality
+                  </span>
+                </div>
+
+                <div className="absolute top-1/2 right-8 hidden md:flex items-center gap-3">
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-[#f5f0e8] font-semibold bg-[#101010]/80 px-3 py-1 rounded backdrop-blur-sm border border-[#2a2a2a]">
+                    Exquisite Cuisines
+                  </span>
+                  <div className="w-8 h-[1px] bg-[#c9a56a]" />
+                </div>
+
+                <div className="absolute bottom-10 left-8 sm:left-12 max-w-lg">
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#c9a56a] font-medium flex items-center gap-1.5 mb-1.5">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Lounge & Dining Sanctuary</span>
+                  </span>
+                  <p className="font-editorial text-2xl sm:text-3xl text-[#f5f0e8]">
+                    Flame-Broiled Steaks, Craft Libations & Modern Social Energy
+                  </p>
+                </div>
               </div>
-              <Link
-                href="/menu"
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#c5a059] hover:underline"
-              >
-                <span>View Full Menus (Brunch, Lunch & Dinner)</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
             </motion.div>
+          </div>
+        </section>
 
-            {/* 4 Featured Dishes */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {featuredDishes.map((dish, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeInUp}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-[#1a1917] rounded-2xl border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all shadow-md"
+        {/* =========================================================================
+            3. WELCOME SECTION — Asymmetrical Editorial Story Block
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#161616] border-y border-[#222222] relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Asymmetrical Photo Duo */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative h-[380px] sm:h-[460px] w-full rounded overflow-hidden border border-[#2a2a2a] shadow-xl">
+                  <Image
+                    src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80"
+                    alt="Flame grilled steak cuisine at C Lounge & Grill"
+                    fill
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101010]/70 via-transparent to-transparent" />
+                </div>
+
+                {/* Overlapping secondary image */}
+                <div className="absolute -bottom-8 -right-4 sm:-right-8 w-48 sm:w-64 h-56 sm:h-72 rounded overflow-hidden border-2 border-[#161616] shadow-2xl hidden xs:block">
+                  <Image
+                    src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
+                    alt="Handcrafted cocktail creation"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Right Column: Story Copy */}
+              <div className="lg:col-span-6 space-y-6 lg:pl-6">
+                <div>
+                  <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                    <Flame className="w-3.5 h-3.5" />
+                    WELCOME TO C LOUNGE & GRILL
+                  </span>
+                  <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8] mt-2 leading-tight">
+                    Where Great Food Meets Great Atmosphere
+                  </h2>
+                </div>
+
+                <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
+                  Located at 1735 E 172nd Street in the Bronx, C Lounge & Grill was envisioned as an elevated neighborhood haven. We bring together the bold warmth of flame-broiled grill cuisine, creative handcrafted mixology, and an intimate lounge atmosphere.
+                </p>
+
+                <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
+                  Whether you are planning a relaxed dinner with family, an intimate date night over candlelit cocktails, or a lively weekend gathering with close friends, our doors are open with genuine New York hospitality.
+                </p>
+
+                <div className="pt-2">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#c9a56a] hover:text-[#dfbe85] font-semibold group"
+                  >
+                    <span>Discover Our Story</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            4. EXPERIENCE SECTION — 3 Signature Experiences
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#101010]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold">
+                THE TRIPLE ESSENCE
+              </span>
+              <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
+                Curated For Every Occasion
+              </h2>
+              <p className="text-xs sm:text-sm text-[#a9a39a]">
+                Three interconnected dimensions blending dinner, drinks, and nightlife under one roof.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {EXPERIENCES.map((exp) => (
+                <div
+                  key={exp.id}
+                  className="luxury-card rounded-md overflow-hidden flex flex-col group"
                 >
-                  <div className="relative h-48 w-full overflow-hidden">
+                  <div className="relative h-64 w-full overflow-hidden">
                     <Image
-                      src={dish.image}
-                      alt={dish.title}
+                      src={exp.image}
+                      alt={exp.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1917] via-transparent to-transparent" />
-                    <span className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-sm text-[11px] font-bold text-[#c5a059] border border-white/10">
-                      {dish.price}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b] via-[#1b1b1b]/40 to-transparent" />
+                    <span className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-semibold px-2.5 py-1 bg-[#101010]/80 rounded border border-[#2a2a2a] text-[#c9a56a]">
+                      {exp.eyebrow}
                     </span>
+                  </div>
+
+                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-3">
+                      <h3 className="font-editorial text-2xl text-[#f5f0e8] group-hover:text-[#c9a56a] transition-colors">
+                        {exp.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-[#a9a39a] leading-relaxed">
+                        {exp.desc}
+                      </p>
+                    </div>
+
+                    <ul className="pt-2 border-t border-[#262626] space-y-2 text-xs text-[#a9a39a]">
+                      {exp.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#c9a56a]" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            5. SIGNATURE MENU PREVIEW — Clean Editable Preview Structure
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#161616] border-y border-[#222222]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                  <UtensilsCrossed className="w-3.5 h-3.5" />
+                  CULINARY & COCKTAIL PREVIEW
+                </span>
+                <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
+                  Savor Our Favorites
+                </h2>
+                <p className="text-xs sm:text-sm text-[#a9a39a] max-w-lg">
+                  A preview of our kitchen offerings, from flame-grilled specialties to signature libations. (Owner editable data structure).
+                </p>
+              </div>
+
+              <Link
+                href="/menu"
+                className="inline-flex items-center gap-2 px-5 py-3 bg-[#1b1b1b] hover:bg-[#c9a56a] text-[#c9a56a] hover:text-[#101010] border border-[#c9a56a]/30 transition-all text-xs uppercase tracking-[0.16em] font-semibold rounded-sm self-start md:self-auto"
+              >
+                <span>View Full Menu</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {previewDishes.map((item) => (
+                <div
+                  key={item.id}
+                  className="luxury-card rounded-md overflow-hidden flex flex-col group"
+                >
+                  <div className="relative h-48 w-full overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b] to-transparent opacity-60" />
+                    {item.isSignature && (
+                      <span className="absolute top-3 right-3 text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#c9a56a] text-[#101010] rounded-sm shadow">
+                        Highlight
+                      </span>
+                    )}
                   </div>
 
                   <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-                        {dish.category}
-                      </span>
-                      <h3 className="font-editorial text-xl font-bold text-white group-hover:text-[#c5a059] transition-colors leading-snug">
-                        {dish.title}
-                      </h3>
-                      <p className="mt-2 text-xs text-slate-400 font-light leading-relaxed">
-                        {dish.desc}
+                      <div className="flex items-baseline justify-between gap-2 mb-1">
+                        <h4 className="font-editorial text-lg text-[#f5f0e8] group-hover:text-[#c9a56a] transition-colors">
+                          {item.name}
+                        </h4>
+                        <span className="text-sm font-semibold text-[#c9a56a]">
+                          {item.price}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#a9a39a] leading-relaxed line-clamp-2">
+                        {item.description}
                       </p>
                     </div>
+
+                    {item.pairingNote && (
+                      <p className="text-[11px] text-[#736e67] italic pt-2 border-t border-[#262626]">
+                        {item.pairingNote}
+                      </p>
+                    )}
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        {/* 10. Sunday Brunch Promotion */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-16 sm:py-20 bg-[#161514] border-t border-b border-white/10 relative overflow-hidden"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
-              <motion.div variants={fadeInUp} className="lg:col-span-5 relative">
-                <div className="relative h-72 sm:h-96 rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-                  <Image
-                    src="/images/stclair/steal-potatoes-and-eggs.jpg"
-                    alt="Sunday Brunch Steak and Eggs"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <span className="text-xs font-bold text-[#c5a059] uppercase tracking-wider block">
-                      Every Sunday • 11:00 AM – 3:00 PM
-                    </span>
-                    <span className="font-editorial text-lg sm:text-xl font-bold">
-                      Open Seating • No Reservations Required
-                    </span>
-                  </div>
+        {/* =========================================================================
+            6. AMBIENCE SECTION — Dramatic Image-Led Storytelling
+            ========================================================================= */}
+        <section className="relative py-28 lg:py-36 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1800&q=85"
+              alt="Lounge ambience at C Lounge & Grill"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#101010] via-[#101010]/85 to-[#101010]/70" />
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl space-y-6">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                <Music className="w-3.5 h-3.5" />
+                NIGHTLIFE & SOCIAL REFINEMENT
+              </span>
+
+              <h2 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#f5f0e8] leading-[1.15]">
+                More Than Dining. <br />
+                <span className="text-[#c9a56a] italic font-light">It’s an Experience.</span>
+              </h2>
+
+              <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
+                As the daylight fades into twilight over the Bronx, C Lounge & Grill transitions into an energetic, candlelit escape. Soft golden lighting illuminates the room, clinking glasses punctuate melodic soundtracks, and laughter fills our booths.
+              </p>
+
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#262626]">
+                <div>
+                  <h4 className="font-editorial text-xl text-[#f5f0e8]">Curated Sounds</h4>
+                  <p className="text-xs text-[#a9a39a] mt-1">
+                    Carefully programmed music complementing dinner conversation and late-night lounge energy.
+                  </p>
                 </div>
-              </motion.div>
-
-              <motion.div variants={fadeInUp} className="lg:col-span-7 space-y-5">
-                <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block">
-                  Weekend Tradition
-                </span>
-                <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-                  Sunday Brunch at The St. Clair
-                </h2>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                  Join us every Sunday from 11:00 AM to 3:00 PM for our beloved Southern brunch. Indulge in Steak & Eggs, fresh buttermilk biscuits with housemade jam, Gulf shrimp & grits, eggs benedict, and classic brunch cocktails like Mimosas and spicy Bloody Marys.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                  <div className="p-3.5 rounded-xl bg-[#1f1d1b] border border-white/10">
-                    <span className="font-bold text-white text-xs block">Tavern Steak Bowl</span>
-                    <span className="text-[11px] text-slate-400">Smoked beef, potatoes, sunny egg</span>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-[#1f1d1b] border border-white/10">
-                    <span className="font-bold text-white text-xs block">Housemade Biscuits</span>
-                    <span className="text-[11px] text-slate-400">Warm biscuits, chef butter & jam</span>
-                  </div>
-                  <div className="p-3.5 rounded-xl bg-[#1f1d1b] border border-white/10">
-                    <span className="font-bold text-white text-xs block">Steak & Eggs</span>
-                    <span className="text-[11px] text-slate-400">Angus sirloin or NY strip</span>
-                  </div>
+                <div>
+                  <h4 className="font-editorial text-xl text-[#f5f0e8]">Celebration Space</h4>
+                  <p className="text-xs text-[#a9a39a] mt-1">
+                    Spacious seating and hospitality dedicated to birthdays, toasts, and social evenings.
+                  </p>
                 </div>
+              </div>
 
-                <div className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
-                  <Link
-                    href="/menu"
-                    className="px-6 py-3 rounded-xl bg-[#c5a059] text-[#0d0c0b] font-bold text-xs hover:brightness-110 transition-all flex items-center gap-1.5"
-                  >
-                    <span>View Sunday Brunch Menu</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                  <span className="text-xs text-slate-400">
-                    Followed by Sunday Dinner (3:00 PM – 8:00 PM)
-                  </span>
-                </div>
-              </motion.div>
+              <div className="pt-4">
+                <button
+                  onClick={() => setReservationOpen(true)}
+                  className="px-6 py-3.5 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow-xl"
+                >
+                  Reserve an Evening
+                </button>
+              </div>
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        {/* 9. Meet the Culinary Team */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-20 sm:py-24 bg-[#141312] border-b border-white/10"
-        >
+        {/* =========================================================================
+            7. EVENTS PREVIEW — Editable Sample Cards (Clearly Marked)
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#161616] border-b border-[#222222]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
-              <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block">
-                Hospitality & Craft
-              </span>
-              <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white">
-                Meet Our Culinary & Service Team
-              </h2>
-              <p className="text-sm sm:text-base text-slate-400 font-light max-w-xl mx-auto leading-relaxed">
-                The skilled artisans dedicated to scratch cooking, Southern flavor, and attentive hospitality in Pell City.
-              </p>
-            </motion.div>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                  <Calendar className="w-3.5 h-3.5" />
+                  SPECIAL OCCASIONS & EVENINGS
+                </span>
+                <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
+                  Upcoming Evenings
+                </h2>
+                <p className="text-xs sm:text-sm text-[#a9a39a] max-w-md">
+                  Preview of recurring lounge programming and private booking capabilities. (Sample customizable slots).
+                </p>
+              </div>
 
-            {/* Team Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-              {ST_CLAIR_DATA.team.map((member, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={fadeInUp}
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.25 }}
-                  className="bg-[#1a1917] rounded-2xl border border-white/10 overflow-hidden flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all text-center shadow-lg"
+              <Link
+                href="/events"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#c9a56a] hover:text-[#dfbe85] font-semibold"
+              >
+                <span>Explore Events & Inquiries</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {SAMPLE_EVENTS.map((evt) => (
+                <div
+                  key={evt.id}
+                  className="luxury-card rounded-md overflow-hidden flex flex-col group"
                 >
-                  <div className="relative h-60 w-full overflow-hidden bg-[#22201e]">
+                  <div className="relative h-48 w-full overflow-hidden">
                     <Image
-                      src={member.image}
-                      alt={member.name}
+                      src={evt.image}
+                      alt={evt.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1a1917] via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b] to-transparent" />
+                    <span className="absolute top-3 left-3 text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#101010]/80 text-[#c9a56a] rounded-sm border border-[#2a2a2a]">
+                      {evt.category}
+                    </span>
                   </div>
 
-                  <div className="p-5 flex-1 flex flex-col justify-between space-y-2">
-                    <div>
-                      <h3 className="font-editorial text-lg font-bold text-white group-hover:text-[#c5a059] transition-colors">
-                        {member.name}
-                      </h3>
-                      <span className="text-[11px] font-sans font-semibold text-[#c5a059] block mt-0.5">
-                        {member.role}
-                      </span>
-                      <p className="mt-2.5 text-[11px] text-slate-400 font-light line-clamp-3 leading-relaxed">
-                        {member.bio}
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <div className="text-[11px] uppercase tracking-wider text-[#c9a56a] font-medium flex items-center gap-1.5">
+                        <Clock className="w-3 h-3" />
+                        <span>{evt.date} · {evt.time}</span>
+                      </div>
+                      <h4 className="font-editorial text-xl text-[#f5f0e8] group-hover:text-[#c9a56a] transition-colors">
+                        {evt.title}
+                      </h4>
+                      <p className="text-xs text-[#a9a39a] leading-relaxed">
+                        {evt.description}
                       </p>
                     </div>
+
+                    <div className="pt-2 border-t border-[#262626] flex items-center justify-between">
+                      <span className="text-[10px] uppercase tracking-wider text-[#736e67]">
+                        Sample Preview Format
+                      </span>
+                      <Link
+                        href="/events"
+                        className="text-xs text-[#c9a56a] hover:underline flex items-center gap-1"
+                      >
+                        <span>Details</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </Link>
+                    </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="mt-12 text-center">
+        {/* =========================================================================
+            8. GALLERY PREVIEW — Editorial Image Grid with Lightbox
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#101010]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+              <div className="space-y-2">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold">
+                  MOMENTS & ATMOSPHERE
+                </span>
+                <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
+                  A Glimpse Inside C Lounge
+                </h2>
+                <p className="text-xs sm:text-sm text-[#a9a39a]">
+                  Click any photo to view in high resolution.
+                </p>
+              </div>
+
               <Link
-                href="/team"
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#c5a059] hover:underline"
+                href="/gallery"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-[#c9a56a] hover:text-[#dfbe85] font-semibold"
               >
-                <span>Read Full Team Profiles & Story</span>
+                <span>View Complete Gallery</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-          </div>
-        </motion.section>
 
-        {/* 11. Private Dining & Catering */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-16 sm:py-20 bg-[#0d0c0b] border-b border-white/10"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              variants={fadeInUp}
-              className="bg-[#1a1917] rounded-3xl border border-white/10 p-6 sm:p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-10 shadow-2xl relative overflow-hidden"
-            >
-              <div className="space-y-4 max-w-2xl relative z-10">
-                <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block">
-                  Events & Gatherings
-                </span>
-                <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-                  Make Your Next Gathering Special
-                </h2>
-                <p className="text-sm sm:text-base text-slate-300 font-light leading-relaxed">
-                  From rehearsal dinners and corporate celebrations to family milestone birthdays and full off-site catering, The St. Clair team crafts customized menus and private dining packages.
-                </p>
-                <div className="pt-2 flex flex-wrap gap-3 sm:gap-4 text-xs text-slate-400">
-                  <span className="flex items-center gap-1.5"><span className="text-[#c5a059]">✓</span> Private Room Reservations</span>
-                  <span className="flex items-center gap-1.5"><span className="text-[#c5a059]">✓</span> Tailored Multi-Course Menus</span>
-                  <span className="flex items-center gap-1.5"><span className="text-[#c5a059]">✓</span> Dedicated Hospitality Staff</span>
-                </div>
-              </div>
-
-              <div className="flex-shrink-0 flex flex-col sm:flex-row gap-3 w-full lg:w-auto relative z-10">
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setCateringOpen(true)}
-                  className="w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-[#dfbe7d] via-[#c5a059] to-[#a07f3d] hover:brightness-110 text-[#0d0c0b] font-bold text-xs rounded-xl shadow-lg transition-all text-center cursor-pointer"
-                >
-                  Plan Your Event / Catering
-                </motion.button>
-                <Link
-                  href="/catering-events"
-                  className="w-full sm:w-auto px-6 py-3.5 bg-white/10 hover:bg-white/15 text-white font-bold text-xs rounded-xl border border-white/15 text-center transition-all"
-                >
-                  Learn More
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </motion.section>
-
-        {/* 12. Restaurant Gallery */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-20 sm:py-24 bg-[#141312] border-b border-white/10"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div variants={fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-4 sm:gap-6 mb-12 sm:mb-14">
-              <div>
-                <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block mb-2">
-                  Visual Tour
-                </span>
-                <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white">
-                  Restaurant & Food Gallery
-                </h2>
-              </div>
-              <Link
-                href="/gallery"
-                className="inline-flex items-center gap-2 text-xs font-bold text-[#c5a059] hover:underline"
-              >
-                <span>View Complete 16-Photo Gallery</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
-
-            {/* Gallery Grid (8 featured photos) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-              {ST_CLAIR_DATA.gallery.slice(0, 8).map((photo) => (
-                <motion.div
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {GALLERY_PHOTOS.slice(0, 4).map((photo) => (
+                <div
                   key={photo.id}
-                  variants={fadeInUp}
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() => setActivePhoto(photo)}
-                  className="relative h-40 sm:h-56 rounded-xl overflow-hidden border border-white/10 cursor-pointer group shadow-md"
+                  onClick={() => setSelectedPhoto(photo)}
+                  className="relative h-64 sm:h-80 rounded overflow-hidden cursor-pointer group border border-[#222222]"
                 >
                   <Image
-                    src={photo.src}
-                    alt={photo.title}
+                    src={photo.image}
+                    alt={photo.alt}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                    <span className="text-white text-xs font-medium line-clamp-1">
-                      {photo.title}
+                  <div className="absolute inset-0 bg-[#101010]/30 group-hover:bg-[#101010]/10 transition-colors" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#101010]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
+                    <span className="text-[10px] uppercase tracking-wider text-[#c9a56a]">
+                      {photo.category}
                     </span>
+                    <p className="text-xs font-medium text-[#f5f0e8] line-clamp-1">
+                      {photo.title}
+                    </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
-        </motion.section>
+        </section>
 
-        {/* 13. Location, Hours, and Directions */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={staggerContainer}
-          className="py-20 sm:py-24 bg-[#0d0c0b]"
-        >
+        {/* =========================================================================
+            9. VISIT US SECTION — Accurate Bronx Business Info & Map
+            ========================================================================= */}
+        <section className="py-20 lg:py-28 bg-[#161616] border-t border-[#222222]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-center">
-              <motion.div variants={fadeInUp} className="lg:col-span-6 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+              
+              {/* Left Column: Address, Phone, CTAs */}
+              <div className="lg:col-span-5 space-y-6">
                 <div>
-                  <span className="text-[11px] font-sans uppercase tracking-[0.25em] text-[#c5a059] font-bold block mb-2">
-                    Visit Us
+                  <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                    <MapPin className="w-3.5 h-3.5" />
+                    VISIT C LOUNGE & GRILL
                   </span>
-                  <h2 className="font-editorial text-3xl sm:text-5xl font-bold tracking-tight text-white">
-                    Location & Hours
+                  <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8] mt-2">
+                    In the Heart of the Bronx
                   </h2>
                 </div>
 
-                <div className="space-y-4 text-xs sm:text-sm text-slate-300">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#c5a059] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-bold text-white block">Address:</span>
-                      <span>{ST_CLAIR_DATA.address.full}</span>
-                      <a
-                        href="https://maps.google.com/?q=2413+Dr+John+Haynes+Pell+City+AL+35125"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#c5a059] hover:underline block text-xs mt-1 font-semibold"
-                      >
-                        Open in Google Maps →
+                <div className="space-y-4 text-sm text-[#a9a39a]">
+                  <div className="p-4 bg-[#1b1b1b] border border-[#2a2a2a] rounded-sm space-y-2">
+                    <h4 className="text-xs uppercase tracking-wider text-[#c9a56a] font-semibold">
+                      Location & Address
+                    </h4>
+                    <p className="text-[#f5f0e8] font-medium text-base">
+                      C Lounge & Grill
+                    </p>
+                    <p>1735 E 172nd St, Bronx, NY 10472, United States</p>
+                  </div>
+
+                  <div className="p-4 bg-[#1b1b1b] border border-[#2a2a2a] rounded-sm space-y-2">
+                    <h4 className="text-xs uppercase tracking-wider text-[#c9a56a] font-semibold">
+                      Direct Telephone
+                    </h4>
+                    <p className="text-base text-[#f5f0e8]">
+                      <a href={`tel:${C_LOUNGE_INFO.phoneRaw}`} className="hover:text-[#c9a56a] transition-colors">
+                        +1 (646) 785-5832
                       </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Phone className="w-5 h-5 text-[#c5a059] flex-shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-bold text-white block">Telephone:</span>
-                      <a href={`tel:${ST_CLAIR_DATA.phoneRaw}`} className="hover:text-[#c5a059]">
-                        {ST_CLAIR_DATA.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <Clock className="w-5 h-5 text-[#c5a059] flex-shrink-0 mt-0.5" />
-                    <div className="w-full">
-                      <span className="font-bold text-white block mb-2">Weekly Service Hours:</span>
-                      <div className="space-y-2 text-xs">
-                        {ST_CLAIR_DATA.hours.map((h, i) => (
-                          <div key={i} className="flex flex-col xs:flex-row xs:justify-between border-b border-white/5 pb-1 gap-0.5">
-                            <span className="text-slate-400">{h.days}:</span>
-                            <span className="font-semibold text-white">{h.time}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-2 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setReservationOpen(true)}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-[#c5a059] text-[#0d0c0b] font-bold text-xs hover:brightness-110 cursor-pointer shadow-md text-center"
-                  >
-                    Reserve Table via Resy
-                  </motion.button>
-                  <a
-                    href={`tel:${ST_CLAIR_DATA.phoneRaw}`}
-                    className="w-full sm:w-auto px-6 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs border border-white/15 text-center"
-                  >
-                    Call (659) 658-4271
-                  </a>
-                </div>
-              </motion.div>
-
-              {/* Interactive Directions Card */}
-              <motion.div
-                variants={fadeInUp}
-                className="lg:col-span-6 relative h-80 sm:h-96 rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-[#1a1917] flex items-center justify-center p-6 text-center"
-              >
-                <div className="space-y-4 max-w-sm">
-                  <div className="w-12 h-12 rounded-full bg-[#c5a059]/10 text-[#c5a059] flex items-center justify-center mx-auto border border-[#c5a059]/30">
-                    <MapPin className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-editorial text-2xl font-bold text-white">
-                      The St. Clair Restaurant & Tavern
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      2413 Dr John Haynes Drive, Pell City, AL 35125
+                    </p>
+                    <p className="text-xs text-[#736e67]">
+                      For reservations, private lounge celebrations, or takeout inquiries.
                     </p>
                   </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2">
                   <a
-                    href="https://maps.google.com/?q=2413+Dr+John+Haynes+Pell+City+AL+35125"
+                    href={C_LOUNGE_INFO.googleMapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/15 transition-all shadow-md"
+                    className="px-5 py-3 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.15em] rounded-sm flex items-center gap-2 shadow"
                   >
-                    <span>View Interactive Map & Directions</span>
-                    <ExternalLink className="w-3.5 h-3.5 text-[#c5a059]" />
+                    <span>Get Directions</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
+
+                  <a
+                    href={`tel:${C_LOUNGE_INFO.phoneRaw}`}
+                    className="px-5 py-3 border border-[#333333] hover:border-[#c9a56a] text-[#f5f0e8] hover:text-[#c9a56a] text-xs uppercase tracking-[0.15em] rounded-sm flex items-center gap-2"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Call Us</span>
+                  </a>
+
+                  <Link
+                    href="/contact"
+                    className="px-5 py-3 bg-[#1b1b1b] hover:bg-[#252525] text-[#a9a39a] hover:text-[#f5f0e8] text-xs uppercase tracking-[0.15em] rounded-sm"
+                  >
+                    Contact Page
+                  </Link>
                 </div>
-              </motion.div>
+              </div>
+
+              {/* Right Column: Google Maps Embed Card */}
+              <div className="lg:col-span-7">
+                <div className="relative h-[380px] sm:h-[450px] w-full rounded-md overflow-hidden border border-[#2a2a2a] shadow-2xl">
+                  <iframe
+                    src={C_LOUNGE_INFO.googleMapsEmbed}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(90%)" }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="C Lounge & Grill Google Map"
+                  />
+                  {/* Subtle Floating Location Badge */}
+                  <div className="absolute bottom-4 left-4 right-4 sm:right-auto bg-[#101010]/95 backdrop-blur-md p-3.5 rounded border border-[#2a2a2a] shadow-xl text-xs space-y-1">
+                    <span className="text-[10px] uppercase tracking-wider text-[#c9a56a] font-semibold block">
+                      C Lounge & Grill
+                    </span>
+                    <p className="text-[#f5f0e8]">1735 E 172nd St, Bronx, NY 10472</p>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
-        </motion.section>
+        </section>
       </main>
 
-      {/* 14. Elegant Contact Footer */}
-      <StClairFooter onOpenReservation={() => setReservationOpen(true)} />
+      {/* Footer */}
+      <CLoungeFooter />
 
-      {/* Mobile Sticky Booking Bar */}
-      <MobileReserveBar onOpenReservation={() => setReservationOpen(true)} />
-
-      {/* Modals with Framer Motion */}
+      {/* Reservation Modal */}
       <ReservationModal
         isOpen={reservationOpen}
         onClose={() => setReservationOpen(false)}
       />
 
-      <CateringInquiryModal
-        isOpen={cateringOpen}
-        onClose={() => setCateringOpen(false)}
-      />
-
+      {/* Image Lightbox */}
       <ImageLightboxModal
-        photo={activePhoto}
-        onClose={() => setActivePhoto(null)}
+        photo={selectedPhoto}
+        photos={GALLERY_PHOTOS}
+        onClose={() => setSelectedPhoto(null)}
+        onSelectPhoto={(photo) => setSelectedPhoto(photo)}
       />
     </div>
   );

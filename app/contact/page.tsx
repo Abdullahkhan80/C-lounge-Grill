@@ -7,347 +7,347 @@ import {
   Phone, 
   MapPin, 
   Clock, 
-  Calendar, 
   Send, 
-  ExternalLink, 
-  Sparkles, 
   CheckCircle2, 
-  Navigation, 
-  Wine, 
-  Beer, 
-  Mail
+  ArrowUpRight, 
+  Sparkles, 
+  AlertCircle,
+  Mail,
+  Calendar
 } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-import { StClairNavbar } from "@/components/StClairNavbar";
-import { StClairFooter } from "@/components/StClairFooter";
-import { ReservationModal } from "@/components/ReservationModal";
-import { MobileReserveBar } from "@/components/MobileReserveBar";
-import { ST_CLAIR_DATA } from "@/data/stClairData";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" }
-  }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.05
-    }
-  }
-};
+import { CLoungeNavbar } from "@/components/cLounge/Navbar";
+import { CLoungeFooter } from "@/components/cLounge/Footer";
+import { ReservationModal } from "@/components/cLounge/ReservationModal";
+import { C_LOUNGE_INFO } from "@/data/cLoungeData";
 
 export default function ContactPage() {
   const [reservationOpen, setReservationOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
-    phone: "",
-    subject: "General Question",
+    subject: "General Inquiry",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
+
+  const validate = () => {
+    const errs: Record<string, string> = {};
+    if (!form.name.trim()) errs.name = "Please enter your name.";
+    if (!form.email.trim() || !form.email.includes("@")) {
+      errs.email = "Please enter a valid email address.";
+    }
+    if (!form.message.trim()) errs.message = "Please enter your message.";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 600);
+    setApiError(null);
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setApiError(data.error || "Failed to send message.");
+      } else {
+        setSubmitted(true);
+      }
+    } catch (err) {
+      setApiError("A network error occurred. Please try again or call us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-[#0e0d0c] text-[#f4efe6] selection:bg-[#c5a059] selection:text-black pb-16 sm:pb-0">
-      <StClairNavbar onOpenReservation={() => setReservationOpen(true)} />
+    <div className="min-h-screen flex flex-col bg-[#101010] text-[#f5f0e8] overflow-x-hidden selection:bg-[#c9a56a] selection:text-[#101010]">
+      <CLoungeNavbar onOpenReservation={() => setReservationOpen(true)} />
 
-      {/* Header */}
-      <section className="relative pt-32 pb-16 md:pt-44 md:pb-28 border-b border-[#2a2724] overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/stclair/StClair-bldg-scaled.jpg"
-            alt="The St. Clair Location"
-            fill
-            className="object-cover opacity-20 filter brightness-75 scale-105"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0e0d0c]/90 via-[#0e0d0c]/95 to-[#0e0d0c]" />
-        </div>
+      <main className="flex-1">
+        {/* Contact Hero Section */}
+        <section className="relative pt-36 sm:pt-44 pb-16 lg:pb-20 overflow-hidden bg-[#0d0d0d] border-b border-[#222222]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1b1b1b] border border-[#c9a56a]/30 text-[#c9a56a] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Bronx, New York</span>
+            </span>
 
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-        >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1e1c19] border border-[#c5a059]/40 text-[#c5a059] text-xs font-medium uppercase tracking-widest mb-4 shadow-md">
-            <MapPin className="w-3.5 h-3.5" />
-            Pell City, Alabama
-          </motion.div>
-          <motion.h1 variants={fadeInUp} className="font-editorial text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-[#f4efe6] tracking-tight leading-tight">
-            Location <span className="italic font-normal text-[#c5a059]">&</span> Contact
-          </motion.h1>
-          <motion.p variants={fadeInUp} className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg text-[#a89f91] max-w-2xl mx-auto font-light leading-relaxed">
-            Conveniently situated off I-20 at Exit 158 in Pell City. We look forward to welcoming you to The St. Clair.
-          </motion.p>
-        </motion.div>
-      </section>
+            <h1 className="font-editorial text-4xl sm:text-6xl text-[#f5f0e8] tracking-tight">
+              Connect With C Lounge & Grill
+            </h1>
 
-      {/* Main Details & Form Grid */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
-        variants={staggerContainer}
-        className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-      >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* Left Column: Hours, Phone, Address, Resy Button */}
-          <motion.div variants={fadeInUp} className="lg:col-span-5 space-y-6 sm:space-y-8">
-            {/* Quick Address Card */}
-            <div className="rounded-3xl bg-[#141210] border border-[#2b2722] p-6 sm:p-8 space-y-5 shadow-xl">
-              <h2 className="font-editorial text-2xl font-light text-[#f4efe6] flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-[#c5a059]" />
-                Address & Directions
-              </h2>
-              <div>
-                <p className="text-base text-[#f4efe6] font-medium">The St. Clair Restaurant & Tavern</p>
-                <p className="text-sm text-[#b5ab9d] mt-1">2413 Dr John Haynes</p>
-                <p className="text-sm text-[#b5ab9d]">Pell City, AL 35125</p>
-                <p className="text-xs text-[#8c8273] mt-2">Just minutes from Logan Martin Lake</p>
-              </div>
+            <p className="mt-4 text-sm sm:text-base text-[#a9a39a] leading-relaxed">
+              We welcome your questions, event inquiries, feedback, and table reservations. Located at 1735 E 172nd St, Bronx, NY 10472.
+            </p>
+          </div>
+        </section>
 
-              <div className="pt-2 flex flex-col xs:flex-row gap-3">
-                <a
-                  href="https://maps.google.com/?q=2413+Dr+John+Haynes+Pell+City+AL+35125"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#dfbe7d] via-[#c5a059] to-[#a07f3d] text-[#0e0d0c] font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 shadow-md"
-                >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>Google Directions</span>
-                </a>
-                <a
-                  href={`tel:${ST_CLAIR_DATA.phoneRaw}`}
-                  className="px-4 py-2.5 rounded-xl bg-[#1e1c19] text-[#f4efe6] font-semibold text-xs uppercase tracking-wider border border-[#38332c] hover:border-[#c5a059]/60 transition-all inline-flex items-center justify-center gap-2"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>(659) 658-4271</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Operating Hours Card */}
-            <div className="rounded-3xl bg-[#141210] border border-[#2b2722] p-6 sm:p-8 space-y-5 shadow-xl">
-              <h2 className="font-editorial text-2xl font-light text-[#f4efe6] flex items-center gap-3">
-                <Clock className="w-5 h-5 text-[#c5a059]" />
-                Hours of Operation
-              </h2>
-              <div className="space-y-3 divide-y divide-[#24211d]">
-                {ST_CLAIR_DATA.hours.map((h, idx) => (
-                  <div key={idx} className={idx === 0 ? "pb-3" : "pt-3 pb-3"}>
-                    <div className="flex flex-col xs:flex-row xs:justify-between xs:items-baseline gap-1">
-                      <span className="text-xs sm:text-sm text-[#f4efe6] font-medium">{h.days}</span>
-                      <span className="text-xs sm:text-sm text-[#c5a059] font-mono font-semibold">{h.time}</span>
-                    </div>
-                    <p className="text-[11px] text-[#8c8273] mt-0.5">{h.notes}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Happy Hour Note */}
-              <div className="p-4 rounded-xl bg-[#1c1a17] border border-[#363028]">
-                <p className="text-xs uppercase tracking-wider text-[#c5a059] font-bold">Tavern Happy Hour</p>
-                <p className="text-xs text-[#b5ab9d] mt-1">Monday – Friday: 3:00 PM – 6:00 PM</p>
-              </div>
-            </div>
-
-            {/* Reservation Callout */}
-            <div className="rounded-3xl bg-[#191613] border border-[#c5a059]/30 p-6 sm:p-8 text-center space-y-4 shadow-xl">
-              <h3 className="font-editorial text-xl font-bold text-[#f4efe6]">Reserving A Table</h3>
-              <p className="text-xs sm:text-sm text-[#b5ab9d]">
-                Reservations are recommended for The St. Clair dining room via Resy. The Tavern is first-come, first-served.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setReservationOpen(true)}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#dfbe7d] via-[#c5a059] to-[#a07f3d] text-[#0e0d0c] font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-              >
-                <Calendar className="w-4 h-4" />
-                <span>Book via Resy</span>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Embedded Map & Contact Form */}
-          <motion.div variants={fadeInUp} className="lg:col-span-7 space-y-6 sm:space-y-8">
-            {/* Embedded Google Map */}
-            <div className="rounded-3xl overflow-hidden border border-[#2b2722] bg-[#141210] shadow-2xl">
-              <div className="p-4 bg-[#181613] border-b border-[#26231f] flex items-center justify-between">
-                <span className="text-xs uppercase tracking-wider text-[#c5a059] font-semibold">Interactive Location Map</span>
-                <span className="text-xs text-[#8c8273]">Pell City, AL 35125</span>
-              </div>
-              <div className="relative h-72 sm:h-96 w-full">
-                <iframe
-                  title="The St. Clair Restaurant Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.689531818784!2d-86.29415892348519!3d33.58742994218041!2m3!1f0!2f0!3f0!3m2!1i1024!2i786!4f13.1!3m3!1m2!1s0x888979b9409b3fa1%3A0x67393d3dca6079c0!2sThe%20St.%20Clair!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(90%)" }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full"
-                />
-              </div>
-            </div>
-
-            {/* Direct Message Form */}
-            <div className="rounded-3xl bg-[#141210] border border-[#2b2722] p-6 sm:p-10 shadow-2xl">
-              <h2 className="font-editorial text-2xl sm:text-3xl font-light text-[#f4efe6] mb-2">
-                Send Us a <span className="italic font-normal text-[#c5a059]">Message</span>
-              </h2>
-              <p className="text-xs sm:text-sm text-[#a89f91] mb-6 sm:mb-8">
-                Questions regarding reservations, private events, or feedback? Send our management team a note below.
-              </p>
-
-              {submitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-10 space-y-3"
-                >
-                  <div className="w-14 h-14 rounded-full bg-[#c5a059]/20 text-[#c5a059] flex items-center justify-center mx-auto border border-[#c5a059]/40">
-                    <CheckCircle2 className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-editorial text-2xl text-[#f4efe6]">Thank You for Reaching Out!</h3>
-                  <p className="text-xs sm:text-sm text-[#b5ab9d] max-w-sm mx-auto">
-                    We have received your message and will respond as soon as possible.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({ name: "", email: "", phone: "", subject: "General Question", message: "" });
-                    }}
-                    className="mt-4 px-5 py-2.5 rounded-xl bg-[#1e1c19] border border-[#38332c] text-xs font-semibold uppercase tracking-wider text-[#c5a059] cursor-pointer"
-                  >
-                    Send Another Note
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 text-xs">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-slate-300 mb-1.5 font-medium">
-                        Your Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="John Smith"
-                        className="w-full bg-[#1c1a17] border border-[#36312a] rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#f4efe6] placeholder-[#6d665b] focus:outline-none focus:border-[#c5a059] transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-slate-300 mb-1.5 font-medium">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="(659) 000-0000"
-                        className="w-full bg-[#1c1a17] border border-[#36312a] rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#f4efe6] placeholder-[#6d665b] focus:outline-none focus:border-[#c5a059] transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-slate-300 mb-1.5 font-medium">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="john@example.com"
-                        className="w-full bg-[#1c1a17] border border-[#36312a] rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#f4efe6] placeholder-[#6d665b] focus:outline-none focus:border-[#c5a059] transition-colors"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-slate-300 mb-1.5 font-medium">
-                        Subject
-                      </label>
-                      <select
-                        value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="w-full bg-[#1c1a17] border border-[#36312a] rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#f4efe6] focus:outline-none focus:border-[#c5a059] transition-colors"
-                      >
-                        <option>General Question</option>
-                        <option>Dining Room Reservations</option>
-                        <option>Private Dining & Catering</option>
-                        <option>Menu / Dietary Inquiry</option>
-                        <option>Guest Feedback</option>
-                      </select>
-                    </div>
-                  </div>
-
+        {/* Contact & Map Section */}
+        <section className="py-20 lg:py-28 bg-[#161616]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              
+              {/* Left Column: Direct Info & Hours (5 cols) */}
+              <div className="lg:col-span-5 space-y-6">
+                
+                {/* Verified Address */}
+                <div className="p-6 bg-[#1b1b1b] border border-[#2a2a2a] rounded-md space-y-3">
+                  <h3 className="text-xs uppercase tracking-[0.2em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-[#c9a56a]" />
+                    <span>Restaurant Location</span>
+                  </h3>
                   <div>
-                    <label className="block text-slate-300 mb-1.5 font-medium">
-                      Message *
-                    </label>
-                    <textarea
-                      rows={4}
-                      required
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="How can we assist you?"
-                      className="w-full bg-[#1c1a17] border border-[#36312a] rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#f4efe6] placeholder-[#6d665b] focus:outline-none focus:border-[#c5a059] transition-colors resize-none"
-                    />
+                    <h4 className="font-editorial text-2xl text-[#f5f0e8]">
+                      C Lounge & Grill
+                    </h4>
+                    <p className="text-sm text-[#a9a39a] mt-1">
+                      1735 E 172nd St, Bronx, NY 10472, United States
+                    </p>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    type="submit"
-                    disabled={loading}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#dfbe7d] via-[#c5a059] to-[#a07f3d] hover:brightness-110 text-[#0e0d0c] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-[#c5a059]/10 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    {loading ? (
-                      <span>Sending Message...</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4" />
-                        <span>Send Note to The St. Clair</span>
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-              )}
+                  <div className="pt-2 flex flex-wrap items-center gap-3">
+                    <a
+                      href={C_LOUNGE_INFO.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-wider rounded-sm flex items-center gap-1.5 shadow"
+                    >
+                      <span>Get Directions</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+
+                    <a
+                      href={`tel:${C_LOUNGE_INFO.phoneRaw}`}
+                      className="px-4 py-2 border border-[#333333] hover:border-[#c9a56a] text-[#f5f0e8] hover:text-[#c9a56a] text-xs uppercase tracking-wider rounded-sm flex items-center gap-1.5"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      <span>Call Now</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Direct Phone */}
+                <div className="p-6 bg-[#1b1b1b] border border-[#2a2a2a] rounded-md space-y-2">
+                  <h4 className="text-xs uppercase tracking-[0.2em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                    <Phone className="w-4 h-4 text-[#c9a56a]" />
+                    <span>Direct Contact Number</span>
+                  </h4>
+                  <p className="font-editorial text-2xl text-[#f5f0e8]">
+                    <a href={`tel:${C_LOUNGE_INFO.phoneRaw}`} className="hover:text-[#c9a56a] transition-colors">
+                      +1 (646) 785-5832
+                    </a>
+                  </p>
+                  <p className="text-xs text-[#736e67]">
+                    Available for reservations, group bookings, and takeout questions.
+                  </p>
+                </div>
+
+                {/* Opening Hours Component */}
+                <div className="p-6 bg-[#1b1b1b] border border-[#2a2a2a] rounded-md space-y-4">
+                  <h4 className="text-xs uppercase tracking-[0.2em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-[#c9a56a]" />
+                    <span>Lounge & Dining Hours</span>
+                  </h4>
+
+                  <div className="space-y-3 text-xs">
+                    {C_LOUNGE_INFO.hours.map((h, i) => (
+                      <div key={i} className="flex justify-between items-baseline border-b border-[#262626] pb-2">
+                        <div>
+                          <span className="font-medium text-[#f5f0e8] block">{h.days}</span>
+                          <span className="text-[11px] text-[#736e67]">{h.service}</span>
+                        </div>
+                        <span className="text-[#c9a56a] font-medium">{h.hours}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="text-[11px] text-[#736e67] italic pt-1">
+                    * Schedule can be adjusted by the business owner in data configuration.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Right Column: Contact Form & Map Embed (7 cols) */}
+              <div className="lg:col-span-7 space-y-8">
+                
+                {/* Contact Inquiry Form */}
+                <div className="bg-[#1b1b1b] border border-[#2a2a2a] rounded-md p-6 sm:p-8 shadow-2xl relative">
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#c9a56a] to-transparent" />
+
+                  <div className="mb-6">
+                    <h3 className="font-editorial text-2xl sm:text-3xl text-[#f5f0e8]">
+                      Send Us a Message
+                    </h3>
+                    <p className="text-xs text-[#a9a39a] mt-1">
+                      Fill out the form below and we will get back to you promptly.
+                    </p>
+                  </div>
+
+                  {apiError && (
+                    <div className="mb-4 p-3 rounded bg-red-900/30 border border-red-500/50 text-xs text-red-300">
+                      {apiError}
+                    </div>
+                  )}
+
+                  {!submitted ? (
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-1.5">
+                            Your Name *
+                          </label>
+                          <input
+                            type="text"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                            placeholder="John Doe"
+                            className="w-full px-3.5 py-2.5 bg-[#161616] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                          />
+                          {errors.name && (
+                            <p className="text-[11px] text-red-400 mt-1">{errors.name}</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-1.5">
+                            Your Email *
+                          </label>
+                          <input
+                            type="email"
+                            value={form.email}
+                            onChange={(e) => setForm({ ...form, email: e.target.value })}
+                            placeholder="john@example.com"
+                            className="w-full px-3.5 py-2.5 bg-[#161616] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                          />
+                          {errors.email && (
+                            <p className="text-[11px] text-red-400 mt-1">{errors.email}</p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-1.5">
+                          Subject
+                        </label>
+                        <select
+                          value={form.subject}
+                          onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                          className="w-full px-3.5 py-2.5 bg-[#161616] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-xs text-[#f5f0e8] transition-colors"
+                        >
+                          <option value="General Inquiry">General Inquiry</option>
+                          <option value="Table Reservation Assistance">Table Reservation Assistance</option>
+                          <option value="Private Celebration / Lounge Event">Private Celebration / Lounge Event</option>
+                          <option value="Menu & Dietary Question">Menu & Dietary Question</option>
+                          <option value="Other Feedback">Other Feedback</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-1.5">
+                          Message *
+                        </label>
+                        <textarea
+                          rows={4}
+                          value={form.message}
+                          onChange={(e) => setForm({ ...form, message: e.target.value })}
+                          placeholder="How can we assist you?"
+                          className="w-full px-3.5 py-2.5 bg-[#161616] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-xs text-[#f5f0e8] placeholder-[#555] transition-colors"
+                        />
+                        {errors.message && (
+                          <p className="text-[11px] text-red-400 mt-1">{errors.message}</p>
+                        )}
+                      </div>
+
+                      <div className="pt-2 flex items-center justify-between">
+                        <span className="text-[11px] text-[#736e67]">
+                          * Verified response guaranteed.
+                        </span>
+
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="px-6 py-3 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow-md flex items-center gap-2"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <div className="w-3.5 h-3.5 border-2 border-[#101010] border-t-transparent rounded-full animate-spin" />
+                              <span>Sending...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Send className="w-3.5 h-3.5" />
+                              <span>Send Message</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="text-center py-8 space-y-4">
+                      <div className="w-14 h-14 mx-auto rounded-full bg-[#c9a56a]/10 border border-[#c9a56a] flex items-center justify-center text-[#c9a56a]">
+                        <CheckCircle2 className="w-7 h-7" />
+                      </div>
+                      <h4 className="font-editorial text-2xl text-[#f5f0e8]">
+                        Message Received
+                      </h4>
+                      <p className="text-xs text-[#a9a39a] max-w-sm mx-auto leading-relaxed">
+                        Thank you for reaching out, <span className="text-[#f5f0e8] font-medium">{form.name}</span>. Our hospitality team at C Lounge & Grill will get in touch shortly.
+                      </p>
+                      <button
+                        onClick={() => {
+                          setSubmitted(false);
+                          setForm({ name: "", email: "", subject: "General Inquiry", message: "" });
+                        }}
+                        className="px-5 py-2 bg-[#161616] border border-[#2a2a2a] text-xs text-[#c9a56a] rounded-sm"
+                      >
+                        Send Another Note
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Embedded Interactive Map Card */}
+                <div className="relative h-[340px] w-full rounded-md overflow-hidden border border-[#2a2a2a] shadow-xl">
+                  <iframe
+                    src={C_LOUNGE_INFO.googleMapsEmbed}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) contrast(90%)" }}
+                    allowFullScreen={false}
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="C Lounge & Grill Interactive Location Map"
+                  />
+                  <div className="absolute bottom-4 left-4 bg-[#101010]/95 backdrop-blur-md p-3 rounded border border-[#2a2a2a] text-xs">
+                    <span className="font-editorial text-sm text-[#f5f0e8] block">
+                      C Lounge & Grill
+                    </span>
+                    <span className="text-[11px] text-[#a9a39a]">
+                      1735 E 172nd St, Bronx, NY 10472
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
-          </motion.div>
-        </div>
-      </motion.section>
+          </div>
+        </section>
+      </main>
 
-      <StClairFooter onOpenReservation={() => setReservationOpen(true)} />
-
-      {/* Mobile Sticky Booking Bar */}
-      <MobileReserveBar onOpenReservation={() => setReservationOpen(true)} />
+      <CLoungeFooter />
 
       <ReservationModal
         isOpen={reservationOpen}

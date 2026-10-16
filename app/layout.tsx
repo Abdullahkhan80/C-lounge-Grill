@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -10,7 +10,7 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -18,28 +18,70 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "The St. Clair Restaurant & Tavern | Steaks, Seafood & Cocktails in Pell City, AL",
+  title: "C Lounge & Grill | Premium Restaurant & Lounge in the Bronx, NY",
   description:
-    "Where casual dining meets upscale food and welcoming Southern hospitality. Hand-cut Certified Angus Beef steaks, coastal seafood, craft burgers, 30+ wines by the glass, and Sunday brunch in Pell City, Alabama.",
+    "Good Food. Great Vibes. Unforgettable Nights. Discover flame-grilled specialties, handcrafted cocktails, and an inviting lounge experience at 1735 E 172nd St, Bronx, NY 10472.",
   keywords: [
-    "The St Clair Pell City",
-    "Tavern at The St Clair",
-    "Pell City Restaurants",
-    "Steaks and Seafood Alabama",
-    "Sunday Brunch Pell City",
-    "Resy The St Clair",
-    "Casual Dining Pell City AL",
-    "Arthur St Clair restaurant",
+    "C Lounge & Grill",
+    "C Lounge & Grill Bronx",
+    "Restaurant in Bronx NY",
+    "Lounge and Grill Bronx",
+    "Restaurant near E 172nd St",
+    "Dining in Bronx New York",
+    "Bronx Lounge",
+    "Cocktails and Dining Bronx",
   ],
+  metadataBase: new URL("https://cloungeandgrill.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "The St. Clair Restaurant & Tavern | Pell City, Alabama",
+    title: "C Lounge & Grill | Restaurant, Lounge & Grill in the Bronx, NY",
     description:
-      "Casual Dining. Exceptional Food. Enjoy hand-cut steaks, coastal seafood, craft cocktails, and Sunday brunch across two distinct dining experiences.",
-    url: "https://thestclairpellcity.com",
-    siteName: "The St. Clair Restaurant & Tavern",
+      "Good Food. Great Vibes. Unforgettable Nights. Discover flame-grilled cuisine, curated cocktails, and an upscale lounge atmosphere in the heart of the Bronx.",
+    url: "https://cloungeandgrill.com",
+    siteName: "C Lounge & Grill",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+        width: 1200,
+        height: 630,
+        alt: "C Lounge & Grill - Dining and Lounge Atmosphere in the Bronx, NY",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "C Lounge & Grill | Bronx, New York",
+    description:
+      "Good Food. Great Vibes. Unforgettable Nights. Dining, grill cuisine, cocktails & lounge experience.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const restaurantJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: "C Lounge & Grill",
+  image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "1735 E 172nd St",
+    addressLocality: "Bronx",
+    addressRegion: "NY",
+    postalCode: "10472",
+    addressCountry: "US",
+  },
+  telephone: "+16467855832",
+  servesCuisine: ["Grill", "American", "Cocktails", "Lounge Fare"],
+  priceRange: "$$",
+  hasMap: "https://maps.app.goo.gl/J9ZkXP2xK1b3EAqD6",
+  url: "https://cloungeandgrill.com",
 };
 
 export default function RootLayout({
@@ -48,8 +90,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${jakarta.variable} scroll-smooth`} suppressHydrationWarning>
-      <body className="min-h-screen bg-[#141312] text-[#faf7f0] antialiased selection:bg-[#c5a059] selection:text-[#0d0c0b]" suppressHydrationWarning>
+    <html lang="en" className={`${cormorant.variable} ${inter.variable} scroll-smooth`} suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantJsonLd) }}
+        />
+      </head>
+      <body className="min-h-screen bg-[#101010] text-[#f5f0e8] antialiased selection:bg-[#c9a56a] selection:text-[#101010]" suppressHydrationWarning>
         {children}
       </body>
     </html>
