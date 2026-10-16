@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { RESTAURANT_CONFIG } from "@/restaurant.config";
 
 export async function POST(request: Request) {
   try {
@@ -23,14 +24,12 @@ export async function POST(request: Request) {
     }
 
     // Server-side integration hook:
-    // In production, send email via Resend/SendGrid or push to Resy/OpenTable webhook here.
-    // e.g.:
-    // const destinationEmail = process.env.RESERVATION_NOTIFICATION_EMAIL || "info@cloungeandgrill.com";
-
+    // In production, integrate OpenTable / Resy / SevenRooms API or dispatch webhook/email.
     return NextResponse.json({
       success: true,
       mode: "demo",
-      message: "Reservation request recorded successfully (Demo Mode). Owner notification ready.",
+      venue: `${RESTAURANT_CONFIG.brandName} — ${RESTAURANT_CONFIG.subBrand}`,
+      message: "Reservation request recorded successfully (Demo Mode). Ready for booking management integration.",
       data: {
         fullName: fullName.trim(),
         email: email.trim(),
@@ -38,12 +37,12 @@ export async function POST(request: Request) {
         date,
         time,
         partySize: partySize || "2 Guests",
-        seatingArea: seatingArea || "Main Dining Room",
+        seatingArea: seatingArea || "Main Hearth Dining",
         specialRequests: specialRequests || "",
         receivedAt: new Date().toISOString(),
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Internal server error processing reservation." },
       { status: 500 }

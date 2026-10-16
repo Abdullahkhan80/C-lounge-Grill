@@ -1,60 +1,64 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: var(--font-serif), "Cormorant Garamond", "Playfair Display", Georgia, serif;
-  --font-sans: var(--font-sans), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: var(--font-serif), "Playfair Display", "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-sans), "Inter", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Primary Palette */
-  --color-charcoal-950: #0a0a0a;
-  --color-charcoal-900: #101010; /* Primary Background */
-  --color-charcoal-850: #161616;
-  --color-charcoal-800: #1b1b1b; /* Secondary Background */
-  --color-charcoal-700: #262626; /* Card border / subtle divider */
-  --color-charcoal-600: #383838;
+  /* Art Direction Palette */
+  --color-velora-cream: #F7F3EC;
+  --color-velora-cream-light: #FDFBF7;
+  --color-velora-cream-dark: #E8E1D5;
+  --color-velora-cream-muted: #D1C7B7;
 
-  /* Champagne Gold */
-  --color-gold: #c9a56a; /* Primary Accent */
-  --color-gold-light: #dfbe85;
-  --color-gold-dark: #a88247;
-  --color-gold-muted: rgba(201, 165, 106, 0.15);
+  --color-velora-espresso: #1B1714;
+  --color-velora-espresso-dark: #120F0D;
+  --color-velora-espresso-card: #25201C;
+  --color-velora-espresso-border: #38302A;
 
-  /* Ivory Text */
-  --color-ivory: #f5f0e8; /* Text Color */
-  --color-ivory-muted: #a9a39a; /* Muted Text */
-  --color-ivory-dim: #736e67;
+  --color-velora-olive: #414B39;
+  --color-velora-olive-dark: #2E3628;
+  --color-velora-olive-light: #5B6851;
+  --color-velora-olive-muted: rgba(65, 75, 57, 0.15);
+
+  --color-velora-copper: #B88960;
+  --color-velora-copper-hover: #CBA079;
+  --color-velora-copper-dark: #976D49;
+  --color-velora-copper-dim: rgba(184, 137, 96, 0.15);
+
+  --color-velora-charcoal: #141210;
+  --color-velora-muted: #8E867E;
 }
 
 :root {
-  --bg-primary: #101010;
-  --bg-secondary: #1b1b1b;
-  --accent-gold: #c9a56a;
-  --text-ivory: #f5f0e8;
-  --text-muted: #a9a39a;
+  --bg-cream: #F7F3EC;
+  --bg-espresso: #1B1714;
+  --accent-copper: #B88960;
+  --accent-olive: #414B39;
   color-scheme: dark;
 }
 
 html {
   scroll-behavior: smooth;
-  background-color: #101010;
-  color: #f5f0e8;
+  background-color: #1B1714;
+  color: #F7F3EC;
 }
 
 body {
-  background-color: #101010;
-  color: #f5f0e8;
+  background-color: #1B1714;
+  color: #F7F3EC;
   font-family: var(--font-sans), system-ui, sans-serif;
   overflow-x: hidden;
-  selection-background-color: #c9a56a;
-  selection-color: #101010;
+  selection-background-color: #B88960;
+  selection-color: #1B1714;
 }
 
 ::selection {
-  background-color: #c9a56a;
-  color: #101010;
+  background-color: #B88960;
+  color: #1B1714;
 }
 
 .font-editorial {
-  font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
+  font-family: var(--font-serif), "Playfair Display", Georgia, serif;
 }
 
 /* Custom Scrollbar */
@@ -62,34 +66,45 @@ body {
   width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #101010;
+  background: #1B1714;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: #38302A;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c9a56a;
+  background: #B88960;
 }
 
 /* Accessibility focus indicator */
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-  outline: 2px solid #c9a56a;
+  outline: 2px solid #B88960;
   outline-offset: 2px;
 }
 
-/* Luxury Card Gradient & Border */
-.luxury-card {
-  background: #1b1b1b;
-  border: 1px solid rgba(201, 165, 106, 0.15);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Luxury Editorial Card Styles */
+.espresso-card {
+  background: #25201C;
+  border: 1px solid rgba(184, 137, 96, 0.18);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.luxury-card:hover {
-  border-color: rgba(201, 165, 106, 0.4);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.7);
+.espresso-card:hover {
+  border-color: rgba(184, 137, 96, 0.45);
+  box-shadow: 0 16px 36px -12px rgba(18, 15, 13, 0.8);
 }
 
-/* Subtle gold glow */
-.gold-glow {
-  box-shadow: 0 0 25px -5px rgba(201, 165, 106, 0.25);
+.cream-card {
+  background: #FDFBF7;
+  color: #1B1714;
+  border: 1px solid rgba(184, 137, 96, 0.25);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cream-card:hover {
+  border-color: #B88960;
+  box-shadow: 0 16px 36px -12px rgba(27, 23, 20, 0.15);
+}
+
+/* Restrained Copper Glow */
+.copper-glow {
+  box-shadow: 0 0 28px -6px rgba(184, 137, 96, 0.28);
 }

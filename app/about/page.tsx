@@ -12,112 +12,105 @@ import {
   HeartHandshake, 
   Calendar, 
   ArrowRight,
-  ArrowUpRight,
-  ShieldCheck
+  ArrowUpRight
 } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-import { CLoungeNavbar } from "@/components/cLounge/Navbar";
-import { CLoungeFooter } from "@/components/cLounge/Footer";
-import { ReservationModal } from "@/components/cLounge/ReservationModal";
-import { C_LOUNGE_INFO } from "@/data/cLoungeData";
-
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.55, ease: "easeOut" }
-  }
-};
+import { DemoBanner } from "@/components/velora/DemoBanner";
+import { AnnouncementBar } from "@/components/velora/AnnouncementBar";
+import { Navbar } from "@/components/velora/Navbar";
+import { Footer } from "@/components/velora/Footer";
+import { ReservationModal } from "@/components/velora/ReservationModal";
+import { RESTAURANT_CONFIG } from "@/restaurant.config";
 
 export default function AboutPage() {
   const [reservationOpen, setReservationOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#101010] text-[#f5f0e8] overflow-x-hidden selection:bg-[#c9a56a] selection:text-[#101010]">
-      <CLoungeNavbar onOpenReservation={() => setReservationOpen(true)} />
+    <div className="min-h-screen flex flex-col bg-[#1B1714] text-[#F7F3EC] overflow-x-hidden selection:bg-[#B88960] selection:text-[#1B1714]">
+      <DemoBanner />
+      <AnnouncementBar />
+      <Navbar onOpenReservation={() => setReservationOpen(true)} />
 
       <main className="flex-1">
-        {/* Immersive Hero Section */}
-        <section className="relative pt-36 sm:pt-44 pb-20 lg:pb-28 overflow-hidden bg-[#0d0d0d] border-b border-[#222222]">
+        {/* Immersive Hero */}
+        <section className="relative pt-36 sm:pt-44 pb-20 lg:pb-28 overflow-hidden bg-[#120F0D] border-b border-[#38302A]">
           <div className="absolute inset-0 z-0 opacity-25">
             <Image
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80"
-              alt="C Lounge dining room ambiance"
+              alt={`${RESTAURANT_CONFIG.brandName} Dining Philosophy`}
               fill
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D] via-[#120F0D]/80 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1b1b1b] border border-[#c9a56a]/30 text-[#c9a56a] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#25201C] border border-[#B88960]/30 text-[#B88960] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Our Story & Philosophy</span>
             </span>
 
-            <h1 className="font-editorial text-4xl sm:text-6xl text-[#f5f0e8] tracking-tight">
-              A Warm Sanctuary of Flavor <br className="hidden sm:inline" />
-              <span className="text-[#c9a56a] italic font-light">& Nightlife in the Bronx</span>
+            <h1 className="font-editorial text-4xl sm:text-6xl text-[#F7F3EC] tracking-tight">
+              Honest Craft, Shared Moments, <br className="hidden sm:inline" />
+              <span className="text-[#B88960] italic font-light">& Warm Hospitality</span>
             </h1>
 
-            <p className="mt-6 text-sm sm:text-base text-[#a9a39a] leading-relaxed">
-              Founded on the belief that great dining and elevated lounge culture should feel warm, accessible, and unforgettable, C Lounge & Grill welcomes the Bronx to gather, toast, and indulge.
+            <p className="mt-6 text-sm sm:text-base text-[#D1C7B7] leading-relaxed">
+              {RESTAURANT_CONFIG.positioning} Conceived as a celebration of open flame, peak seasonal produce, and unpretentious elegance.
             </p>
           </div>
         </section>
 
-        {/* Narrative & Hospitality Philosophy */}
-        <section className="py-20 lg:py-28 bg-[#161616]">
+        {/* Narrative & Ethos (Light Cream Contrast) */}
+        <section className="py-20 lg:py-28 bg-[#F7F3EC] text-[#1B1714]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
               <div className="lg:col-span-6 space-y-6">
                 <div>
-                  <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
+                  <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold flex items-center gap-2">
                     <Flame className="w-3.5 h-3.5" />
-                    THE C LOUNGE ESSENCE
+                    THE VELORA ESSENCE
                   </span>
-                  <h2 className="font-editorial text-3xl sm:text-4xl text-[#f5f0e8] mt-2">
+                  <h2 className="font-editorial text-3xl sm:text-4xl text-[#1B1714] mt-2">
                     Crafted for Savoring, Built for Connecting
                   </h2>
                 </div>
 
-                <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
-                  Located along East 172nd Street, our space was thoughtfully arranged to bridge two distinct worlds: the culinary satisfaction of an authentic grillhouse and the magnetic, celebratory pull of an upscale New York cocktail lounge.
+                <p className="text-sm sm:text-base text-[#38302A] leading-relaxed">
+                  Great hospitality is never about theatrical pretense; it is about creating an environment where people feel genuinely at home. At VELORA, every plate emerges from a respect for the ingredients: where they were grown, who harvested them, and how simple heat transforms them into memory.
                 </p>
 
-                <p className="text-sm sm:text-base text-[#a9a39a] leading-relaxed">
-                  We believe true hospitality begins the moment you enter our doorway. From the ambient lighting and comfortable seating arrangements to the warmth of our greeting and the meticulous care behind each cocktail pour, our objective is simple: create an environment where time slows down and memories are forged.
+                <p className="text-sm sm:text-base text-[#38302A] leading-relaxed">
+                  From our wood-fired hearth to our botanical mixology counter, every detail is engineered to foster effortless socializing. We honor the ritual of passing plates across the table, savoring a thoughtfully paired glass of wine, and letting dinner stretch comfortably into the night.
                 </p>
 
-                <div className="p-5 bg-[#1b1b1b] border-l-2 border-[#c9a56a] rounded-sm space-y-2">
-                  <h4 className="text-xs uppercase tracking-wider text-[#c9a56a] font-semibold">
+                <div className="p-5 bg-[#FDFBF7] border-l-2 border-[#B88960] rounded-sm shadow-sm space-y-2">
+                  <h4 className="text-xs uppercase tracking-wider text-[#B88960] font-semibold">
                     The Culinary Philosophy
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#a9a39a] leading-relaxed">
-                    High heat, vibrant seasoning, and honest ingredients. Every steak cut, skewer, and seafood selection is flame-seared to lock in natural juices and layered with scratch marinades and sauces.
+                  <p className="text-xs sm:text-sm text-[#5B6851] leading-relaxed">
+                    Open wood fire, clean acidity, and unhurried ferments. We favor texture, balance, and ingredients that speak clearly for themselves.
                   </p>
                 </div>
               </div>
 
               <div className="lg:col-span-6">
-                <div className="relative h-[420px] sm:h-[480px] w-full rounded-md overflow-hidden border border-[#2a2a2a] shadow-2xl">
+                <div className="relative h-[420px] sm:h-[480px] w-full rounded-md overflow-hidden shadow-2xl border border-[#D1C7B7]">
                   <Image
                     src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
-                    alt="Grill craftsmanship at C Lounge"
+                    alt="Culinary hearth at VELORA"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#101010]/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   
-                  <div className="absolute bottom-6 left-6 right-6 p-4 bg-[#101010]/90 backdrop-blur-md border border-[#262626] rounded-sm text-xs">
-                    <span className="text-[10px] uppercase tracking-wider text-[#c9a56a] font-semibold block">
-                      Bronx Dining Culture
+                  <div className="absolute bottom-6 left-6 right-6 p-4 bg-[#1B1714]/90 backdrop-blur-md border border-[#38302A] rounded-sm text-xs text-[#F7F3EC]">
+                    <span className="text-[10px] uppercase tracking-wider text-[#B88960] font-semibold block">
+                      Contemporary Hospitality
                     </span>
-                    <p className="text-[#f5f0e8] mt-0.5">
-                      Bringing prime dining craftsmanship and late-evening lounge sophistication to our community.
+                    <p className="text-[#D1C7B7] mt-0.5">
+                      Adaptable for modern culinary concepts, boutique dining rooms, and high-energy social lounges.
                     </p>
                   </div>
                 </div>
@@ -127,52 +120,52 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Pillars of Experience */}
-        <section className="py-20 lg:py-28 bg-[#101010] border-t border-[#222222]">
+        {/* Pillars of Atmosphere */}
+        <section className="py-20 lg:py-28 bg-[#1B1714] border-t border-[#38302A]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold">
                 OUR COMMITMENTS
               </span>
-              <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
-                Hospitality, Flavor & Atmosphere
+              <h2 className="font-editorial text-3xl sm:text-5xl text-[#F7F3EC]">
+                Hospitality, Flavor & Ambiance
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="luxury-card p-8 rounded-md space-y-4">
-                <div className="w-12 h-12 rounded bg-[#c9a56a]/10 border border-[#c9a56a]/30 flex items-center justify-center text-[#c9a56a]">
+              <div className="espresso-card p-8 rounded-md space-y-4">
+                <div className="w-12 h-12 rounded bg-[#B88960]/10 border border-[#B88960]/30 flex items-center justify-center text-[#B88960]">
                   <Flame className="w-6 h-6" />
                 </div>
-                <h3 className="font-editorial text-2xl text-[#f5f0e8]">
-                  Open Flame Grill
+                <h3 className="font-editorial text-2xl text-[#F7F3EC]">
+                  The Live Hearth
                 </h3>
-                <p className="text-xs sm:text-sm text-[#a9a39a] leading-relaxed">
-                  Steaks, chops, and skewers cooked over blazing heat for caramelized crusts, tender interiors, and rich smoky aromas.
+                <p className="text-xs sm:text-sm text-[#D1C7B7] leading-relaxed">
+                  Steaks, whole catches, and seasonal vegetables roasted over white-oak coals for rich caramelized flavors and aromatic smoke.
                 </p>
               </div>
 
-              <div className="luxury-card p-8 rounded-md space-y-4">
-                <div className="w-12 h-12 rounded bg-[#c9a56a]/10 border border-[#c9a56a]/30 flex items-center justify-center text-[#c9a56a]">
+              <div className="espresso-card p-8 rounded-md space-y-4">
+                <div className="w-12 h-12 rounded bg-[#B88960]/10 border border-[#B88960]/30 flex items-center justify-center text-[#B88960]">
                   <Wine className="w-6 h-6" />
                 </div>
-                <h3 className="font-editorial text-2xl text-[#f5f0e8]">
-                  Crafted Mixology
+                <h3 className="font-editorial text-2xl text-[#F7F3EC]">
+                  Botanical Mixology
                 </h3>
-                <p className="text-xs sm:text-sm text-[#a9a39a] leading-relaxed">
-                  Signature cocktails prepared with premium spirits, fresh citrus squeezes, infused syrups, and bespoke flair.
+                <p className="text-xs sm:text-sm text-[#D1C7B7] leading-relaxed">
+                  House-clarified extracts, single-origin amari, and balanced zero-proof infusions crafted with seasonal precision.
                 </p>
               </div>
 
-              <div className="luxury-card p-8 rounded-md space-y-4">
-                <div className="w-12 h-12 rounded bg-[#c9a56a]/10 border border-[#c9a56a]/30 flex items-center justify-center text-[#c9a56a]">
+              <div className="espresso-card p-8 rounded-md space-y-4">
+                <div className="w-12 h-12 rounded bg-[#B88960]/10 border border-[#B88960]/30 flex items-center justify-center text-[#B88960]">
                   <HeartHandshake className="w-6 h-6" />
                 </div>
-                <h3 className="font-editorial text-2xl text-[#f5f0e8]">
-                  Community Warmth
+                <h3 className="font-editorial text-2xl text-[#F7F3EC]">
+                  Effortless Grace
                 </h3>
-                <p className="text-xs sm:text-sm text-[#a9a39a] leading-relaxed">
-                  A neighborhood living room where regulars and first-timers alike are greeted as cherished guests of honor.
+                <p className="text-xs sm:text-sm text-[#D1C7B7] leading-relaxed">
+                  Intuitive service that anticipates needs without intruding on conversation, ensuring each visit feels deeply personal.
                 </p>
               </div>
             </div>
@@ -180,42 +173,40 @@ export default function AboutPage() {
         </section>
 
         {/* Location & Reservation CTA Banner */}
-        <section className="py-20 bg-[#161616] border-t border-[#222222]">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold">
-              PLAN YOUR VISIT
+        <section className="py-20 bg-[#120F0D] border-t border-[#38302A]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold">
+              JOIN OUR TABLE
             </span>
-            <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
-              Experience C Lounge & Grill Tonight
+            <h2 className="font-editorial text-3xl sm:text-5xl text-[#F7F3EC]">
+              Experience {RESTAURANT_CONFIG.brandName}
             </h2>
-            <p className="text-sm text-[#a9a39a] max-w-xl mx-auto leading-relaxed">
-              Join us at 1735 E 172nd St in the Bronx for dinner, drinks, and unforgettable company.
+            <p className="text-sm text-[#D1C7B7] max-w-xl mx-auto leading-relaxed">
+              We invite you to savor thoughtfully prepared food and relaxed hospitality.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <button
                 onClick={() => setReservationOpen(true)}
-                className="px-7 py-3.5 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm flex items-center gap-2 shadow"
+                className="px-7 py-3.5 bg-[#B88960] hover:bg-[#CBA079] text-[#1B1714] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm flex items-center gap-2 shadow"
               >
                 <Calendar className="w-4 h-4" />
                 <span>Reserve a Table</span>
               </button>
 
-              <a
-                href={C_LOUNGE_INFO.googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3.5 border border-[#333333] hover:border-[#c9a56a] text-[#f5f0e8] hover:text-[#c9a56a] text-xs uppercase tracking-[0.16em] rounded-sm flex items-center gap-2"
+              <Link
+                href="/menu"
+                className="px-6 py-3.5 border border-[#38302A] hover:border-[#B88960] text-[#F7F3EC] hover:text-[#B88960] text-xs uppercase tracking-[0.16em] rounded-sm flex items-center gap-2"
               >
-                <span>Get Directions</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+                <span>View Full Menu</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </section>
       </main>
 
-      <CLoungeFooter />
+      <Footer />
 
       <ReservationModal
         isOpen={reservationOpen}

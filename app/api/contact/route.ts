@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { RESTAURANT_CONFIG } from "@/restaurant.config";
 
 export async function POST(request: Request) {
   try {
@@ -15,10 +16,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message is required." }, { status: 400 });
     }
 
-    // In production, integrate email sending service here.
     return NextResponse.json({
       success: true,
-      message: "Your message has been received (Demo Mode). Our team will respond promptly.",
+      mode: "demo",
+      venue: `${RESTAURANT_CONFIG.brandName} — ${RESTAURANT_CONFIG.subBrand}`,
+      message: "Your inquiry has been received (Sales Demo Mode). In production, this delivers directly to your management inbox or CRM.",
       data: {
         name: name.trim(),
         email: email.trim(),
@@ -27,7 +29,7 @@ export async function POST(request: Request) {
         timestamp: new Date().toISOString(),
       },
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Server error processing contact inquiry." },
       { status: 500 }

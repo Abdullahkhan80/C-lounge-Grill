@@ -16,10 +16,12 @@ import {
   PartyPopper,
   ArrowRight
 } from "lucide-react";
-import { CLoungeNavbar } from "@/components/cLounge/Navbar";
-import { CLoungeFooter } from "@/components/cLounge/Footer";
-import { ReservationModal } from "@/components/cLounge/ReservationModal";
-import { SAMPLE_EVENTS, C_LOUNGE_INFO } from "@/data/cLoungeData";
+import { DemoBanner } from "@/components/velora/DemoBanner";
+import { AnnouncementBar } from "@/components/velora/AnnouncementBar";
+import { Navbar } from "@/components/velora/Navbar";
+import { Footer } from "@/components/velora/Footer";
+import { ReservationModal } from "@/components/velora/ReservationModal";
+import { RESTAURANT_CONFIG, EventPackage } from "@/restaurant.config";
 
 export default function EventsPage() {
   const [reservationOpen, setReservationOpen] = useState(false);
@@ -30,9 +32,10 @@ export default function EventsPage() {
     name: "",
     email: "",
     phone: "",
-    eventType: "Birthday Celebration",
-    guestCount: "15-25 Guests",
+    eventType: "Private Celebration / Birthday",
+    guestCount: "12-24 Guests",
     preferredDate: "",
+    spacePreference: "the-cellar-room",
     notes: "",
   });
 
@@ -60,113 +63,114 @@ export default function EventsPage() {
     setTimeout(() => {
       setIsSubmitting(false);
       setInquirySubmitted(true);
-    }, 1000);
+    }, 900);
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#101010] text-[#f5f0e8] overflow-x-hidden selection:bg-[#c9a56a] selection:text-[#101010]">
-      <CLoungeNavbar onOpenReservation={() => setReservationOpen(true)} />
+    <div className="min-h-screen flex flex-col bg-[#1B1714] text-[#F7F3EC] overflow-x-hidden selection:bg-[#B88960] selection:text-[#1B1714]">
+      <DemoBanner />
+      <AnnouncementBar />
+      <Navbar onOpenReservation={() => setReservationOpen(true)} />
 
       <main className="flex-1">
-        {/* Events Hero Section */}
-        <section className="relative pt-36 sm:pt-44 pb-20 lg:pb-28 overflow-hidden bg-[#0d0d0d] border-b border-[#222222]">
+        {/* Events Hero */}
+        <section className="relative pt-36 sm:pt-44 pb-20 lg:pb-28 overflow-hidden bg-[#120F0D] border-b border-[#38302A]">
           <div className="absolute inset-0 z-0 opacity-20">
             <Image
-              src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1800&q=80"
-              alt="Lounge celebrations and events at C Lounge & Grill"
+              src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1800&q=80"
+              alt={`${RESTAURANT_CONFIG.brandName} Private Events & Celebrations`}
               fill
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D] via-[#120F0D]/80 to-transparent" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1b1b1b] border border-[#c9a56a]/30 text-[#c9a56a] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#25201C] border border-[#B88960]/30 text-[#B88960] text-xs font-semibold uppercase tracking-[0.2em] mb-4">
               <PartyPopper className="w-3.5 h-3.5" />
-              <span>Events & Celebrations</span>
+              <span>Private Dining & Social Gatherings</span>
             </span>
 
-            <h1 className="font-editorial text-4xl sm:text-6xl text-[#f5f0e8] tracking-tight">
-              Gather & Celebrate <br className="hidden sm:inline" />
-              <span className="text-[#c9a56a] italic font-light">at C Lounge & Grill</span>
+            <h1 className="font-editorial text-4xl sm:text-6xl text-[#F7F3EC] tracking-tight">
+              Host Unforgettable Evenings
             </h1>
 
-            <p className="mt-4 text-sm sm:text-base text-[#a9a39a] leading-relaxed">
-              From lively birthday milestones and VIP lounge booths to private social gatherings, C Lounge & Grill offers the ideal backdrop for memorable nights in the Bronx.
+            <p className="mt-4 text-sm sm:text-base text-[#D1C7B7] leading-relaxed">
+              From intimate cellar dinners to lively terrace receptions and full venue buyouts, our team crafts tailored hospitality for every celebration.
             </p>
           </div>
         </section>
 
-        {/* Upcoming Events Section (Sample Preview Format) */}
-        <section className="py-20 bg-[#161616] border-b border-[#222222]">
+        {/* Event Spaces Section */}
+        <section className="py-20 bg-[#1B1714] border-b border-[#38302A]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
               <div className="space-y-2">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold flex items-center gap-2">
-                  <Calendar className="w-3.5 h-3.5" />
-                  LOUNGE CALENDAR
+                <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold flex items-center gap-2">
+                  <Wine className="w-3.5 h-3.5" />
+                  SPACES & CAPACITIES
                 </span>
-                <h2 className="font-editorial text-3xl sm:text-4xl text-[#f5f0e8]">
-                  Upcoming Evenings & Theme Nights
+                <h2 className="font-editorial text-3xl sm:text-4xl text-[#F7F3EC]">
+                  Private & Semi-Private Environments
                 </h2>
-                <p className="text-xs sm:text-sm text-[#a9a39a] max-w-xl">
-                  Sample calendar structure for upcoming events and music sessions. All entries are customizable by management in <code className="text-[#c9a56a]">data/cLoungeData.ts</code>.
+                <p className="text-xs sm:text-sm text-[#D1C7B7] max-w-xl">
+                  Demonstration layouts adaptable to your restaurant's physical floor plan and event capabilities.
                 </p>
               </div>
 
-              <div className="p-3 bg-[#1b1b1b] border border-[#2a2a2a] rounded text-xs text-[#a9a39a] flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-[#c9a56a] shrink-0" />
-                <span>Verified Owner-Editable Event Slots</span>
+              <div className="p-3 bg-[#25201C] border border-[#38302A] rounded text-xs text-[#D1C7B7] flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 text-[#B88960] shrink-0" />
+                <span>Demonstrative Package Offerings</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {SAMPLE_EVENTS.map((evt) => (
+              {RESTAURANT_CONFIG.eventPackages.map((pkg) => (
                 <div
-                  key={evt.id}
-                  className="luxury-card rounded-md overflow-hidden flex flex-col group"
+                  key={pkg.id}
+                  className="espresso-card rounded-md overflow-hidden flex flex-col group"
                 >
-                  <div className="relative h-56 w-full overflow-hidden">
+                  <div className="relative h-60 w-full overflow-hidden">
                     <Image
-                      src={evt.image}
-                      alt={evt.title}
+                      src={pkg.image}
+                      alt={pkg.title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b] to-transparent" />
-                    <span className="absolute top-3 left-3 text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-[#101010]/80 text-[#c9a56a] rounded border border-[#2a2a2a]">
-                      {evt.category}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#25201C] to-transparent" />
+                    <span className="absolute top-3 left-3 text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 bg-[#120F0D]/80 text-[#B88960] rounded border border-[#38302A]">
+                      {pkg.capacity}
                     </span>
                   </div>
 
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
-                      <div className="text-[11px] uppercase tracking-wider text-[#c9a56a] font-medium flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>{evt.date} · {evt.time}</span>
+                      <div className="text-[11px] text-[#B88960] font-medium italic">
+                        {pkg.vibe}
                       </div>
-                      <h3 className="font-editorial text-2xl text-[#f5f0e8] group-hover:text-[#c9a56a] transition-colors">
-                        {evt.title}
+                      <h3 className="font-editorial text-2xl text-[#F7F3EC] group-hover:text-[#B88960] transition-colors">
+                        {pkg.title}
                       </h3>
-                      <p className="text-xs text-[#dfbe85] font-medium">
-                        {evt.subtitle}
-                      </p>
-                      <p className="text-xs text-[#a9a39a] leading-relaxed pt-1">
-                        {evt.description}
+                      <p className="text-xs text-[#D1C7B7] leading-relaxed pt-1">
+                        {pkg.description}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-[#262626] flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-wider text-[#736e67]">
-                        Preview Structure
+                    <div className="pt-3 border-t border-[#38302A] space-y-2">
+                      <span className="text-[10px] uppercase tracking-wider text-[#8E867E] block">
+                        Ideal For:
                       </span>
-                      <button
-                        onClick={() => setReservationOpen(true)}
-                        className="text-xs uppercase tracking-wider text-[#c9a56a] hover:underline font-semibold"
-                      >
-                        Reserve Table
-                      </button>
+                      <div className="flex flex-wrap gap-1.5">
+                        {pkg.idealFor.map((item, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[10px] px-2 py-0.5 rounded bg-[#1B1714] text-[#E8E1D5] border border-[#38302A]"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -175,35 +179,35 @@ export default function EventsPage() {
           </div>
         </section>
 
-        {/* Private Gathering & Celebration Inquiry Form */}
-        <section className="py-20 lg:py-28 bg-[#101010]">
+        {/* Private Gathering Inquiry Form */}
+        <section className="py-20 lg:py-28 bg-[#120F0D]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center space-y-3 mb-12">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#c9a56a] font-semibold">
-                HOST WITH US
+              <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold">
+                EVENT COORDINATION
               </span>
-              <h2 className="font-editorial text-3xl sm:text-5xl text-[#f5f0e8]">
-                Private Celebrations & Group Bookings
+              <h2 className="font-editorial text-3xl sm:text-5xl text-[#F7F3EC]">
+                Inquire About Your Celebration
               </h2>
-              <p className="text-xs sm:text-sm text-[#a9a39a] max-w-xl mx-auto">
-                Planning a birthday milestone, anniversary, holiday party, or corporate outing? Submit an inquiry and our event manager will coordinate table arrangements and customized dining options.
+              <p className="text-xs sm:text-sm text-[#D1C7B7] max-w-xl mx-auto">
+                Share your target date and group requirements below. Our private events director will coordinate bespoke menus and room options.
               </p>
             </div>
 
-            <div className="bg-[#161616] border border-[#262626] rounded-md p-6 sm:p-10 shadow-2xl relative">
+            <div className="bg-[#1B1714] border border-[#38302A] rounded-md p-6 sm:p-10 shadow-2xl relative">
               {!inquirySubmitted ? (
                 <form onSubmit={handleInquirySubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Contact Name *
                       </label>
                       <input
                         type="text"
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        placeholder="e.g. Jessica Ortiz"
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                        placeholder="e.g. Elena Rostova"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] placeholder-[#665D54] transition-colors"
                       />
                       {errors.name && (
                         <p className="text-[11px] text-red-400 mt-1">{errors.name}</p>
@@ -211,15 +215,15 @@ export default function EventsPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Phone Number *
                       </label>
                       <input
                         type="tel"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        placeholder="(646) 000-0000"
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                        placeholder="(555) 000-0000"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] placeholder-[#665D54] transition-colors"
                       />
                       {errors.phone && (
                         <p className="text-[11px] text-red-400 mt-1">{errors.phone}</p>
@@ -229,15 +233,15 @@ export default function EventsPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Email Address *
                       </label>
                       <input
                         type="email"
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
-                        placeholder="jessica@example.com"
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                        placeholder="elena@example.com"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] placeholder-[#665D54] transition-colors"
                       />
                       {errors.email && (
                         <p className="text-[11px] text-red-400 mt-1">{errors.email}</p>
@@ -245,34 +249,33 @@ export default function EventsPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Celebration Type
                       </label>
                       <select
                         value={form.eventType}
                         onChange={(e) => setForm({ ...form, eventType: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] transition-colors"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] transition-colors"
                       >
-                        <option value="Birthday Celebration">Birthday Celebration</option>
-                        <option value="Lounge Booth VIP Party">Lounge Booth VIP Party</option>
-                        <option value="Anniversary / Romance">Anniversary / Romance</option>
-                        <option value="Corporate / Team Dinner">Corporate / Team Dinner</option>
-                        <option value="Private Lounge Buyout">Private Lounge Buyout</option>
-                        <option value="Other Social Gathering">Other Social Gathering</option>
+                        <option value="Private Celebration / Birthday">Private Celebration / Birthday</option>
+                        <option value="Executive Dinner / Corporate">Executive Dinner / Corporate</option>
+                        <option value="Wedding Rehearsal / Milestone">Wedding Rehearsal / Milestone</option>
+                        <option value="Cocktail Reception & Mingling">Cocktail Reception & Mingling</option>
+                        <option value="Full Restaurant Buyout">Full Restaurant Buyout</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Target Date *
                       </label>
                       <input
                         type="date"
                         value={form.preferredDate}
                         onChange={(e) => setForm({ ...form, preferredDate: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] transition-colors"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] transition-colors"
                       />
                       {errors.preferredDate && (
                         <p className="text-[11px] text-red-400 mt-1">{errors.preferredDate}</p>
@@ -280,48 +283,48 @@ export default function EventsPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                      <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                         Estimated Group Size
                       </label>
                       <select
                         value={form.guestCount}
                         onChange={(e) => setForm({ ...form, guestCount: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] transition-colors"
+                        className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] transition-colors"
                       >
-                        <option value="6-10 Guests">6-10 Guests</option>
-                        <option value="11-20 Guests">11-20 Guests</option>
-                        <option value="21-35 Guests">21-35 Guests</option>
-                        <option value="36-50+ Guests">36-50+ Guests (Full Lounge Inquiries)</option>
+                        <option value="8-14 Guests">8-14 Guests</option>
+                        <option value="15-24 Guests">15-24 Guests (The Cellar Room)</option>
+                        <option value="25-50 Guests">25-50 Guests (The Hearth Terrace)</option>
+                        <option value="51-120+ Guests">51-120+ Guests (Full Venue Residency)</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#a9a39a] font-medium mb-2">
+                    <label className="block text-xs uppercase tracking-wider text-[#D1C7B7] font-medium mb-2">
                       Event Details & Custom Requests
                     </label>
                     <textarea
                       rows={3}
                       value={form.notes}
                       onChange={(e) => setForm({ ...form, notes: e.target.value })}
-                      placeholder="Special music requests, bottle service, custom food platters, cake cutting, or timing..."
-                      className="w-full px-4 py-3 bg-[#1b1b1b] border border-[#2a2a2a] focus:border-[#c9a56a] rounded-sm text-sm text-[#f5f0e8] placeholder-[#555] transition-colors"
+                      placeholder="Sommelier wine pairing preferences, AV setup, custom menu courses, timing..."
+                      className="w-full px-4 py-3 bg-[#25201C] border border-[#38302A] focus:border-[#B88960] rounded-sm text-sm text-[#F7F3EC] placeholder-[#665D54] transition-colors"
                     />
                   </div>
 
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-xs text-[#736e67]">
-                      * Event requests are reviewed directly by our hospitality team.
+                    <p className="text-xs text-[#8E867E]">
+                      * In production, this inquiry dispatches directly to event sales coordinators.
                     </p>
 
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto px-8 py-3.5 bg-[#c9a56a] hover:bg-[#dfbe85] text-[#101010] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow-md flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-8 py-3.5 bg-[#B88960] hover:bg-[#CBA079] text-[#1B1714] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow-md flex items-center justify-center gap-2"
                     >
                       {isSubmitting ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-[#101010] border-t-transparent rounded-full animate-spin" />
+                          <div className="w-4 h-4 border-2 border-[#1B1714] border-t-transparent rounded-full animate-spin" />
                           <span>Sending Inquiry...</span>
                         </>
                       ) : (
@@ -335,22 +338,22 @@ export default function EventsPage() {
                 </form>
               ) : (
                 <div className="text-center py-10 space-y-4">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-[#c9a56a]/10 border border-[#c9a56a] flex items-center justify-center text-[#c9a56a]">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-[#B88960]/10 border border-[#B88960] flex items-center justify-center text-[#B88960]">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="font-editorial text-3xl text-[#f5f0e8]">
+                  <h3 className="font-editorial text-3xl text-[#F7F3EC]">
                     Inquiry Received
                   </h3>
-                  <p className="text-sm text-[#a9a39a] max-w-md mx-auto leading-relaxed">
-                    Thank you, <span className="text-[#f5f0e8] font-medium">{form.name}</span>! We have received your event inquiry for <span className="text-[#c9a56a]">{form.eventType}</span> on <span className="text-[#c9a56a]">{form.preferredDate}</span>.
+                  <p className="text-sm text-[#D1C7B7] max-w-md mx-auto leading-relaxed">
+                    Thank you, <span className="text-[#F7F3EC] font-medium">{form.name}</span>. We have received your event inquiry for <span className="text-[#B88960]">{form.eventType}</span> on <span className="text-[#B88960]">{form.preferredDate}</span>.
                   </p>
-                  <p className="text-xs text-[#736e67]">
-                    (Demo Mode: Inquiry logging ready for backend webhook or email notification integration).
+                  <p className="text-xs text-[#8E867E]">
+                    (Sales Demo Mode: Submission data captured cleanly for customer demonstrations).
                   </p>
                   <div className="pt-4">
                     <button
                       onClick={() => setInquirySubmitted(false)}
-                      className="px-6 py-2.5 bg-[#1b1b1b] border border-[#2a2a2a] text-xs uppercase tracking-wider text-[#c9a56a] rounded-sm"
+                      className="px-6 py-2.5 bg-[#25201C] border border-[#38302A] text-xs uppercase tracking-wider text-[#B88960] rounded-sm"
                     >
                       Submit Another Inquiry
                     </button>
@@ -362,7 +365,7 @@ export default function EventsPage() {
         </section>
       </main>
 
-      <CLoungeFooter />
+      <Footer />
 
       <ReservationModal
         isOpen={reservationOpen}

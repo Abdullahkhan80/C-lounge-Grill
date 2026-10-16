@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://cloungeandgrill.com/sitemap.xml",
+    sitemap: "https://velora-dining.demo/sitemap.xml",
   };
 }
