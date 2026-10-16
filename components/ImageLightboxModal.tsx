@@ -92,6 +92,7 @@ export function ImageLightboxModal({ photo, onClose, onNext, onPrev }: ImageLigh
                 src={photo.src}
                 alt={photo.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 1024px"
                 priority
                 className="object-contain"
               />

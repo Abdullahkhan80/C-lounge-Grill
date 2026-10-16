@@ -51,6 +51,7 @@ export default function MenuPage() {
               src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1800&q=80"
               alt={`${RESTAURANT_CONFIG.brandName} Hearth Cuisine`}
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />

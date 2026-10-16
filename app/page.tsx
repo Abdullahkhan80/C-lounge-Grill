@@ -65,6 +65,7 @@ export default function HomePage() {
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=85"
               alt={`${RESTAURANT_CONFIG.brandName} Dining Ambiance`}
               fill
+              sizes="100vw"
               className="object-cover object-center scale-105 animate-pulse duration-[8000ms]"
               priority
             />
@@ -175,6 +176,7 @@ export default function HomePage() {
                     src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80"
                     alt="Wood-Fired Culinary Craft"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -189,6 +191,7 @@ export default function HomePage() {
                     src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80"
                     alt="Botanical cocktail pour"
                     fill
+                    sizes="(max-width: 640px) 176px, 240px"
                     className="object-cover"
                   />
                 </div>
@@ -320,6 +323,7 @@ export default function HomePage() {
               src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1800&q=85"
               alt={`${RESTAURANT_CONFIG.brandName} evening ambiance`}
               fill
+              sizes="100vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#120F0D] via-[#120F0D]/90 to-[#120F0D]/75" />
@@ -396,6 +400,7 @@ export default function HomePage() {
                       src={exp.image}
                       alt={exp.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#25201C] via-[#25201C]/40 to-transparent" />
@@ -430,35 +435,114 @@ export default function HomePage() {
         </section>
 
         {/* =========================================================================
-            CHEF'S PHILOSOPHY SECTION (Without Invented Biography)
+            CHEF'S PHILOSOPHY & CULINARY ETHOS — Luxury Editorial 2-Column Spread
             ========================================================================= */}
-        <section className="py-20 lg:py-28 bg-[#414B39] text-[#F7F3EC] relative overflow-hidden">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold flex items-center justify-center gap-2">
-              <Sparkles className="w-3.5 h-3.5" />
-              {RESTAURANT_CONFIG.philosophy.eyebrow}
-            </span>
+        <section className="py-24 lg:py-32 bg-gradient-to-b from-[#1C201A] via-[#161814] to-[#120F0D] text-[#F7F3EC] relative overflow-hidden border-y border-[#38302A]">
+          {/* Subtle Ambient Background Accents */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#414B39]/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#B88960]/10 rounded-full blur-3xl pointer-events-none" />
 
-            <h2 className="font-editorial text-3xl sm:text-5xl text-[#F7F3EC]">
-              {RESTAURANT_CONFIG.philosophy.heading}
-            </h2>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Visual Hearth Craft with Floating Accent Card */}
+              <div className="lg:col-span-5 relative order-2 lg:order-1">
+                <div className="relative h-[420px] sm:h-[500px] w-full rounded-md overflow-hidden shadow-2xl border border-[#38302A]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1000&q=80"
+                    alt="Open Hearth Live Culinary Fire"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#120F0D] via-[#120F0D]/30 to-transparent" />
+                  
+                  {/* Bottom Image Tag */}
+                  <div className="absolute bottom-4 left-4 right-4 p-3.5 bg-[#1B1714]/85 backdrop-blur-md rounded border border-[#38302A] flex items-center justify-between">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-[#B88960] font-semibold block">
+                        Open-Fired Cooking
+                      </span>
+                      <span className="text-xs text-[#F7F3EC] font-medium">
+                        White-Oak Coals & Direct Sear
+                      </span>
+                    </div>
+                    <Flame className="w-5 h-5 text-[#B88960] shrink-0" />
+                  </div>
+                </div>
 
-            <p className="text-base sm:text-lg text-[#E8E1D5] max-w-2xl mx-auto leading-relaxed font-light">
-              "{RESTAURANT_CONFIG.philosophy.lead}"
-            </p>
+                {/* Floating Corner Accent Badge */}
+                <div className="hidden sm:block absolute -top-5 -right-5 bg-[#25201C] border border-[#B88960]/40 rounded p-3.5 shadow-xl max-w-[190px]">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[#B88960] font-semibold block mb-0.5">
+                    Respectful Sourcing
+                  </span>
+                  <p className="text-[11px] text-[#D1C7B7] leading-snug">
+                    Peak seasonal harvests from regional partners.
+                  </p>
+                </div>
+              </div>
 
-            <p className="text-xs sm:text-sm text-[#D1C7B7] max-w-3xl mx-auto leading-relaxed">
-              {RESTAURANT_CONFIG.philosophy.description}
-            </p>
+              {/* Right Column: Editorial Narrative & Principles */}
+              <div className="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <span className="text-xs uppercase tracking-[0.25em] text-[#B88960] font-semibold flex items-center gap-2">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  {RESTAURANT_CONFIG.philosophy.eyebrow}
+                </span>
 
-            <div className="pt-4">
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#F7F3EC] text-[#1B1714] hover:bg-[#E8E1D5] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow"
-              >
-                <span>Read Full Philosophy</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+                <h2 className="font-editorial text-3xl sm:text-5xl lg:text-6xl text-[#F7F3EC] leading-[1.12]">
+                  {RESTAURANT_CONFIG.philosophy.heading}
+                </h2>
+
+                {/* Styled Quote Box with Left Border */}
+                <div className="p-6 rounded-md bg-[#25201C]/70 border-l-2 border-[#B88960] backdrop-blur-sm shadow-md">
+                  <p className="text-base sm:text-lg text-[#F7F3EC] font-editorial italic leading-relaxed">
+                    "{RESTAURANT_CONFIG.philosophy.lead}"
+                  </p>
+                </div>
+
+                <p className="text-sm sm:text-base text-[#D1C7B7] leading-relaxed">
+                  {RESTAURANT_CONFIG.philosophy.description}
+                </p>
+
+                {/* Three Pillars Mini-Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-[#38302A]">
+                  <div className="space-y-1">
+                    <span className="text-xs font-semibold text-[#B88960] uppercase tracking-wider block">
+                      01 · Purity of Heat
+                    </span>
+                    <p className="text-xs text-[#8E867E]">
+                      Direct embers bring out authentic textures and caramelization.
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-xs font-semibold text-[#B88960] uppercase tracking-wider block">
+                      02 · Fresh Botanicals
+                    </span>
+                    <p className="text-xs text-[#8E867E]">
+                      Native herbs, citrus oils, and unhurried house ferments.
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-xs font-semibold text-[#B88960] uppercase tracking-wider block">
+                      03 · Shared Rhythm
+                    </span>
+                    <p className="text-xs text-[#8E867E]">
+                      Dishes structured naturally for passing and collective tasting.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#B88960] hover:bg-[#CBA079] text-[#1B1714] text-xs font-semibold uppercase tracking-[0.16em] rounded-sm transition-all shadow-lg hover:shadow-[#B88960]/20"
+                  >
+                    <span>Read Full Philosophy</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
@@ -501,6 +585,7 @@ export default function HomePage() {
                     src={photo.image}
                     alt={photo.title}
                     fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-[#120F0D]/30 group-hover:bg-[#120F0D]/10 transition-colors" />

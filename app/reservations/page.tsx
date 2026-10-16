@@ -115,6 +115,7 @@ export default function ReservationsPage() {
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80"
               alt={`${RESTAURANT_CONFIG.brandName} Table Reservations`}
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />

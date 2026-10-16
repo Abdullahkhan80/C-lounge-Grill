@@ -38,6 +38,7 @@ export default function AboutPage() {
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80"
               alt={`${RESTAURANT_CONFIG.brandName} Dining Philosophy`}
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />
@@ -101,6 +102,7 @@ export default function AboutPage() {
                     src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
                     alt="Culinary hearth at VELORA"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />

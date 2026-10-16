@@ -80,6 +80,7 @@ export default function EventsPage() {
               src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1800&q=80"
               alt={`${RESTAURANT_CONFIG.brandName} Private Events & Celebrations`}
               fill
+              sizes="100vw"
               className="object-cover"
               priority
             />
@@ -136,6 +137,7 @@ export default function EventsPage() {
                       src={pkg.image}
                       alt={pkg.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#25201C] to-transparent" />
